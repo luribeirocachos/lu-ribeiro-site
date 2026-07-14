@@ -31,11 +31,12 @@ export const CONTATO = {
   ],
 };
 
-export const NAV = [
+export const NAV: { label: string; href: string; externo?: boolean }[] = [
   { label: 'Início', href: '/' },
   { label: 'Serviços', href: '/servicos' },
   { label: 'Transformações', href: '/transformacoes' },
   { label: 'Blog', href: '/blog' },
+  { label: 'Loja', href: 'https://caracolcachos.lojavirtualnuvem.com.br', externo: true },
   { label: 'Sobre', href: '/sobre' },
   { label: 'Contato', href: '/contato' },
 ];

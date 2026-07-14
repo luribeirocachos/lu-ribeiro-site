@@ -15,7 +15,8 @@ const ativo = (href: string) =>
       {NAV.map((item) => (
         <a
           href={item.href}
-          class:list={['nav__link', { 'nav__link--ativo': ativo(item.href) }]}
+          class:list={['nav__link', { 'nav__link--ativo': !item.externo && ativo(item.href) }]}
+          {...(item.externo ? { target: '_blank', rel: 'noopener' } : {})}
         >
           {item.label}
         </a>
@@ -33,7 +34,11 @@ const ativo = (href: string) =>
 
   <nav class="nav-mobile" aria-label="Menu (celular)">
     {NAV.map((item) => (
-      <a href={item.href} class="nav-mobile__link">{item.label}</a>
+      <a
+        href={item.href}
+        class="nav-mobile__link"
+        {...(item.externo ? { target: '_blank', rel: 'noopener' } : {})}
+      >{item.label}</a>
     ))}
     <a href={linkWhatsApp()} class="btn btn-primario" target="_blank" rel="noopener">Agendar no WhatsApp</a>
   </nav>

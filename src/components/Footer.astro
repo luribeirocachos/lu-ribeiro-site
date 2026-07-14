@@ -16,7 +16,13 @@ const ano = new Date().getFullYear();
     <div>
       <p class="rodape__titulo">Navegue</p>
       <ul class="rodape__lista">
-        {NAV.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        {NAV.map((item) => (
+          <li>
+            <a href={item.href} {...(item.externo ? { target: '_blank', rel: 'noopener' } : {})}>
+              {item.label}
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
 
