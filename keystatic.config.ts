@@ -6,11 +6,11 @@ import { config, fields, collection } from '@keystatic/core';
 // o blog lê (ver src/content.config.ts).
 
 export default config({
-  // 'local' = edita direto nos arquivos (bom pra desenvolvimento).
-  // Na hora de publicar pra Lu editar pela internet, troca por:
-  //   storage: { kind: 'github', repo: 'usuario/repositorio' }
+  // 'github' = a Lu edita pela internet e o Keystatic salva os posts direto
+  // no repositório do GitHub (que republica o site sozinho na Vercel).
   storage: {
-    kind: 'local',
+    kind: 'github',
+    repo: { owner: 'luribeirocachos', name: 'lu-ribeiro-site' },
   },
 
   ui: {
