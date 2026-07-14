@@ -1,0 +1,98 @@
+---
+import { SITE, CONTATO, NAV, linkWhatsApp } from '../consts';
+const ano = new Date().getFullYear();
+---
+
+<footer class="rodape">
+  <div class="container rodape__grid">
+    <div>
+      <img src="/logo/branco-web.png" alt="Espaço Lu Ribeiro" class="rodape__logo" width="560" height="327" />
+      <p class="rodape__texto">{SITE.slogan}.<br />{SITE.cidade}.</p>
+      <a href={CONTATO.instagram} target="_blank" rel="noopener" class="rodape__ig">
+        {CONTATO.instagramHandle}
+      </a>
+    </div>
+
+    <div>
+      <p class="rodape__titulo">Navegue</p>
+      <ul class="rodape__lista">
+        {NAV.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </div>
+
+    <div>
+      <p class="rodape__titulo">Visite</p>
+      <p class="rodape__texto">{CONTATO.endereco}</p>
+      <ul class="rodape__lista rodape__lista--horas">
+        {CONTATO.horarios.map((h) => (
+          <li><span>{h.dia}</span><span>{h.horas}</span></li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <p class="rodape__titulo">Agende seu horário</p>
+      <p class="rodape__texto">Atendimento com hora marcada, pelo WhatsApp.</p>
+      <a href={linkWhatsApp()} class="btn btn-primario" target="_blank" rel="noopener">
+        Falar no WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <div class="container rodape__base">
+    <span>© {ano} Espaço Lu Ribeiro. Todos os direitos reservados.</span>
+    <span>Feito com carinho em Piracicaba 💛</span>
+  </div>
+</footer>
+
+<style>
+  .rodape {
+    background: var(--cafe);
+    color: var(--creme);
+    padding-block: 3.5rem 1.5rem;
+    margin-top: 2rem;
+  }
+  .rodape__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1.2fr 1.2fr;
+    gap: 2.5rem;
+  }
+  .rodape__logo {
+    height: 78px;
+    width: auto;
+    margin-bottom: 1rem;
+  }
+  .rodape__titulo {
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--caramelo);
+    margin-bottom: 0.9rem;
+  }
+  .rodape__texto { color: #e8dccb; opacity: 0.85; font-size: 0.98rem; }
+  .rodape__ig { color: var(--caramelo); font-weight: 600; }
+  .rodape__ig:hover { color: #fff; }
+  .rodape__lista { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.55rem; }
+  .rodape__lista a { color: #e8dccb; }
+  .rodape__lista a:hover { color: #fff; }
+  .rodape__lista--horas li { display: flex; justify-content: space-between; gap: 1rem; color: #e8dccb; font-size: 0.92rem; margin-top: 0.6rem; }
+  .rodape .btn { margin-top: 1rem; }
+  .rodape__base {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    font-size: 0.85rem;
+    color: #cbb9a3;
+  }
+  @media (max-width: 860px) {
+    .rodape__grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  }
+  @media (max-width: 520px) {
+    .rodape__grid { grid-template-columns: 1fr; }
+  }
+</style>

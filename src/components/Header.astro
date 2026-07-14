@@ -1,0 +1,135 @@
+---
+import { NAV, SITE, linkWhatsApp } from '../consts';
+const rota = Astro.url.pathname;
+const ativo = (href: string) =>
+  href === '/' ? rota === '/' : rota.startsWith(href);
+---
+
+<header class="cabecalho">
+  <div class="container cabecalho__inner">
+    <a href="/" class="marca" aria-label={`${SITE.nome} — início`}>
+      <img src="/logo/preto-web.png" alt="Espaço Lu Ribeiro" class="marca__logo" width="560" height="327" />
+    </a>
+
+    <nav class="nav" aria-label="Menu principal">
+      {NAV.map((item) => (
+        <a
+          href={item.href}
+          class:list={['nav__link', { 'nav__link--ativo': ativo(item.href) }]}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <a href={linkWhatsApp()} class="btn btn-primario cabecalho__cta" target="_blank" rel="noopener">
+      Agendar
+    </a>
+
+    <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <nav class="nav-mobile" aria-label="Menu (celular)">
+    {NAV.map((item) => (
+      <a href={item.href} class="nav-mobile__link">{item.label}</a>
+    ))}
+    <a href={linkWhatsApp()} class="btn btn-primario" target="_blank" rel="noopener">Agendar no WhatsApp</a>
+  </nav>
+</header>
+
+<style>
+  .cabecalho {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--creme) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--borda);
+  }
+  .cabecalho__inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 96px;
+  }
+  .marca { display: flex; align-items: center; }
+  .marca__logo {
+    height: 64px;
+    width: auto;
+    display: block;
+  }
+  .nav {
+    display: flex;
+    gap: 1.9rem;
+    margin-left: auto;
+  }
+  .nav__link {
+    color: var(--tinta-suave);
+    font-weight: 500;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    position: relative;
+    padding-block: 0.4rem;
+  }
+  .nav__link:hover { color: var(--primaria-escura); }
+  .nav__link--ativo { color: var(--tinta); }
+  .nav__link--ativo::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -2px;
+    height: 2px;
+    background: var(--primaria);
+    border-radius: 2px;
+  }
+  .cabecalho__cta { padding: 0.6rem 1.3rem; }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-left: auto;
+  }
+  .menu-toggle span {
+    width: 26px; height: 2px;
+    background: var(--tinta);
+    border-radius: 2px;
+    transition: 0.25s;
+  }
+
+  .nav-mobile {
+    display: none;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 1rem 1.5rem 1.6rem;
+    border-top: 1px solid var(--borda);
+  }
+  .nav-mobile__link {
+    padding: 0.7rem 0;
+    color: var(--tinta);
+    font-weight: 600;
+    border-bottom: 1px solid var(--borda);
+  }
+  .nav-mobile .btn { margin-top: 0.8rem; justify-content: center; }
+
+  @media (max-width: 860px) {
+    .nav, .cabecalho__cta { display: none; }
+    .menu-toggle { display: flex; }
+    .nav-mobile.aberto { display: flex; }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector('.menu-toggle');
+  const menu = document.querySelector('.nav-mobile');
+  toggle?.addEventListener('click', () => {
+    const aberto = menu?.classList.toggle('aberto');
+    toggle.setAttribute('aria-expanded', String(!!aberto));
+  });
+</script>

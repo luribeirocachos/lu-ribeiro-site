@@ -1,0 +1,93 @@
+---
+import Base from '../layouts/Base.astro';
+import { linkWhatsApp, CONTATO } from '../consts';
+---
+
+<Base titulo="Sobre a Lu" descricao="Conheça a história por trás do Espaço Lu Ribeiro — o salão de cachos de Piracicaba que trata cabelo e autoestima.">
+  <section class="sobre-hero">
+    <div class="container sobre-hero__inner">
+      <div class="sobre-hero__foto">
+        <img
+          src="/fotos/lu-retrato.jpg"
+          alt="Lu Ribeiro, especialista em cabelos cacheados"
+          width="360" height="640"
+        />
+      </div>
+      <div>
+        <span class="eyebrow">Sobre</span>
+        <h1>Prazer, eu sou a Lu</h1>
+        <p class="lead">
+          Especialista em cabelos cacheados e apaixonada por devolver às pessoas
+          a vontade de usar o cabelo do jeitinho que ele nasceu.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose">
+      <p>
+        O <strong>Espaço Lu Ribeiro</strong> nasceu de uma vontade simples: criar um
+        lugar onde a pessoa de cabelo cacheado se sentisse em casa. Onde ninguém
+        ouvisse “vamos alisar pra facilitar”, e sim “vamos entender o seu cacho”.
+      </p>
+      <p>
+        Ao longo dos anos me especializei em cortes para cachos, terapia capilar e
+        tratamentos — porque percebi que cabelo bonito de verdade começa num couro
+        cabeludo saudável e numa rotina que faça sentido pra vida real de cada cliente.
+      </p>
+      <blockquote>
+        Meu trabalho não é só cuidar de cabelo. É fazer a pessoa se olhar no espelho
+        e gostar do que vê.
+      </blockquote>
+      <h2>Como é ser atendida aqui</h2>
+      <p>
+        O atendimento é com hora marcada e um de cada vez — sem correria. A gente
+        conversa, entende o seu cabelo e a sua rotina, e monta um plano que você
+        consegue manter em casa. Nada de fórmula mágica: é técnica, constância e
+        cuidado de verdade.
+      </p>
+      <p>
+        Tudo isso aqui pertinho, em <strong>Piracicaba</strong>. Vem tomar um café e
+        conhecer o espaço — seu cacho vai adorar. 💛
+      </p>
+    </div>
+
+    <div class="container center" style="margin-top: 1rem;">
+      <a href={linkWhatsApp()} class="btn btn-primario" target="_blank" rel="noopener">Quero agendar</a>
+      <p style="margin-top: 1rem; color: var(--tinta-suave);">
+        Ou siga o dia a dia no Instagram
+        <a href={CONTATO.instagram} target="_blank" rel="noopener">{CONTATO.instagramHandle}</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .sobre-hero {
+    background: radial-gradient(900px 400px at 20% -20%, var(--areia), transparent), var(--creme);
+    padding-block: clamp(3rem, 7vw, 5rem);
+  }
+  .sobre-hero__inner { display: grid; grid-template-columns: 260px 1fr; gap: 2.5rem; align-items: center; }
+  .sobre-hero__foto {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 22px;
+    overflow: hidden;
+    border: 6px solid #fff;
+    box-shadow: var(--sombra);
+  }
+  .sobre-hero__foto img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .sobre-hero__foto::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 40%;
+    background: linear-gradient(to top, var(--creme) 8%, transparent);
+    pointer-events: none;
+  }
+  @media (max-width: 720px) {
+    .sobre-hero__inner { grid-template-columns: 1fr; text-align: center; }
+    .sobre-hero__foto { width: 200px; margin-inline: auto; }
+  }
+</style>

@@ -1,0 +1,129 @@
+---
+import Base from '../layouts/Base.astro';
+import { linkWhatsApp } from '../consts';
+
+const servicos = [
+  {
+    nome: 'Corte Cacheado',
+    icone: '✂️',
+    desc: 'Corte pensado pro seu tipo de cacho, seco ou no método adequado, respeitando o volume e o formato natural. Nada de tesourada genérica — cada fio no lugar certo.',
+    itens: ['Avaliação do padrão de curvatura', 'Corte a seco ou molhado', 'Finalização e dicas de manutenção'],
+  },
+  {
+    nome: 'Terapia Capilar',
+    icone: '🌿',
+    desc: 'O tratamento que começa na raiz — literalmente. Avaliamos o couro cabeludo e montamos um protocolo pra tratar oleosidade, ressecamento, queda e caspa. Base pra qualquer cabelo saudável.',
+    itens: ['Diagnóstico do couro cabeludo', 'Protocolo personalizado', 'Acompanhamento de evolução'],
+  },
+  {
+    nome: 'Tratamentos & Cronograma',
+    icone: '💧',
+    desc: 'Hidratação, nutrição e reconstrução na medida certa. Montamos o cronograma capilar ideal pro seu momento, pra devolver força, brilho e elasticidade ao fio.',
+    itens: ['Hidratação profunda', 'Nutrição e reconstrução', 'Cronograma pra fazer em casa'],
+  },
+  {
+    nome: 'Mechas em Cachos',
+    icone: '✨',
+    desc: 'Iluminado e coloração pensados pra cabelo cacheado — realçando a textura sem comprometer a definição nem a saúde do fio. Loiro dos sonhos, cacho preservado.',
+    itens: ['Mechas e iluminado', 'Técnicas que preservam o cacho', 'Matização e cuidado pós-química'],
+  },
+];
+---
+
+<Base titulo="Serviços" descricao="Corte cacheado, terapia capilar, tratamentos e mechas — tudo especializado em cabelo cacheado, no Espaço Lu Ribeiro em Piracicaba.">
+  <section class="cabecalho-pagina">
+    <div class="container center">
+      <span class="eyebrow">Serviços</span>
+      <h1>Feito pra cachos, do começo ao fim</h1>
+      <p class="lead mx-auto">
+        Cada serviço aqui foi pensado pra respeitar e realçar o seu cabelo cacheado — com técnica, escuta e carinho.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 2rem;">
+    <div class="container">
+      <div class="servicos-lista">
+        {servicos.map((s, i) => (
+          <div class="servico-bloco" data-par={i % 2 === 0 ? 'sim' : 'nao'}>
+            <div class="servico-bloco__icone">{s.icone}</div>
+            <div class="servico-bloco__conteudo">
+              <h2>{s.nome}</h2>
+              <p>{s.desc}</p>
+              <ul class="servico-bloco__itens">
+                {s.itens.map((item) => <li>{item}</li>)}
+              </ul>
+              <a href={linkWhatsApp(`Oi Lu! Quero saber mais sobre ${s.nome} 💛`)} class="btn btn-contorno" target="_blank" rel="noopener">
+                Agendar {s.nome}
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="nota-precos">
+      <p>
+        <strong>E os valores?</strong> Cada cabelo é único, então o valor depende do comprimento,
+        do estado do fio e do que ele precisa. Chama no WhatsApp que a gente te passa um orçamento certinho. 💛
+      </p>
+      <a href={linkWhatsApp()} class="btn btn-primario" target="_blank" rel="noopener">Pedir orçamento</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .cabecalho-pagina {
+    background: radial-gradient(900px 400px at 50% -20%, var(--areia), transparent), var(--creme);
+    padding-block: clamp(3rem, 7vw, 5rem);
+  }
+  .servicos-lista { display: flex; flex-direction: column; gap: 1.5rem; }
+  .servico-bloco {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 2rem;
+    align-items: center;
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra-sm);
+    padding: 2rem 2.2rem;
+  }
+  .servico-bloco__icone {
+    font-size: 3rem;
+    width: 120px; height: 120px;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--creme-2), var(--areia));
+    border-radius: 50%;
+  }
+  .servico-bloco__conteudo h2 { font-size: 1.7rem; margin-bottom: 0.4rem; }
+  .servico-bloco__conteudo p { color: var(--tinta-suave); }
+  .servico-bloco__itens {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.3rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.4rem;
+  }
+  .servico-bloco__itens li { position: relative; padding-left: 1.3rem; color: var(--cafe-suave); font-size: 0.96rem; }
+  .servico-bloco__itens li::before { content: '✓'; position: absolute; left: 0; color: var(--salvia); font-weight: 700; }
+
+  .nota-precos {
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+    background: var(--creme-2);
+    border: 1px dashed var(--caramelo);
+    border-radius: var(--raio);
+    padding: 1.8rem 2rem;
+    margin-block: 1rem 4rem;
+  }
+  .nota-precos p { margin: 0; color: var(--cafe-suave); max-width: 60ch; }
+
+  @media (max-width: 640px) {
+    .servico-bloco { grid-template-columns: 1fr; text-align: center; }
+    .servico-bloco__icone { margin-inline: auto; }
+    .servico-bloco__itens { justify-content: center; }
+  }
+</style>

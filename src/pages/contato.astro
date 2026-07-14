@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import { linkWhatsApp, CONTATO, SITE } from '../consts';
+---
+
+<Base titulo="Contato" descricao="Onde nos encontrar, horários e como agendar no Espaço Lu Ribeiro em Piracicaba.">
+  <section class="cabecalho-pagina">
+    <div class="container center">
+      <span class="eyebrow">Contato</span>
+      <h1>Vem pra cá 💛</h1>
+      <p class="lead mx-auto">Agende pelo WhatsApp e venha cuidar dos seus cachos com a gente.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 2rem;">
+    <div class="container contato-grid">
+      <div class="contato-card">
+        <h2>Fale com a gente</h2>
+        <ul class="contato-lista">
+          <li>
+            <span class="contato-lista__rotulo">WhatsApp</span>
+            <a href={linkWhatsApp()} target="_blank" rel="noopener" class="contato-lista__valor">Agendar / tirar dúvidas</a>
+          </li>
+          <li>
+            <span class="contato-lista__rotulo">Instagram</span>
+            <a href={CONTATO.instagram} target="_blank" rel="noopener" class="contato-lista__valor">{CONTATO.instagramHandle}</a>
+          </li>
+          <li>
+            <span class="contato-lista__rotulo">Endereço</span>
+            <span class="contato-lista__valor">{CONTATO.endereco}</span>
+          </li>
+          <li>
+            <span class="contato-lista__rotulo">Cidade</span>
+            <span class="contato-lista__valor">{SITE.cidade}</span>
+          </li>
+        </ul>
+        <a href={linkWhatsApp()} class="btn btn-primario" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      </div>
+
+      <div class="contato-card">
+        <h2>Horário de atendimento</h2>
+        <ul class="horarios">
+          {CONTATO.horarios.map((h) => (
+            <li><span>{h.dia}</span><span>{h.horas}</span></li>
+          ))}
+        </ul>
+        <p class="contato-obs">Atendemos com hora marcada — assim cada cliente tem o tempo que merece.</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .cabecalho-pagina {
+    background: radial-gradient(900px 400px at 50% -20%, var(--areia), transparent), var(--creme);
+    padding-block: clamp(3rem, 7vw, 5rem);
+  }
+  .contato-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; }
+  .contato-card {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra-sm);
+    padding: 2rem;
+  }
+  .contato-lista { list-style: none; padding: 0; margin: 0 0 1.6rem; }
+  .contato-lista li { padding: 0.9rem 0; border-bottom: 1px solid var(--borda); display: flex; flex-direction: column; gap: 0.2rem; }
+  .contato-lista li:last-child { border-bottom: none; }
+  .contato-lista__rotulo { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--primaria); }
+  .contato-lista__valor { font-size: 1.05rem; color: var(--tinta); }
+  .horarios { list-style: none; padding: 0; margin: 0 0 1.4rem; }
+  .horarios li { display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid var(--borda); }
+  .horarios li:last-child { border-bottom: none; }
+  .horarios span:first-child { color: var(--cafe-suave); font-weight: 600; }
+  .horarios span:last-child { color: var(--tinta-suave); }
+  .contato-obs { color: var(--tinta-suave); font-size: 0.95rem; margin: 0; }
+  @media (max-width: 720px) {
+    .contato-grid { grid-template-columns: 1fr; }
+  }
+</style>

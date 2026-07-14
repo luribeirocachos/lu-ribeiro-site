@@ -1,0 +1,64 @@
+---
+interface Props {
+  slug: string;
+  titulo: string;
+  resumo: string;
+  data: Date;
+  categoria: string;
+  capa?: string;
+}
+const { slug, titulo, resumo, data, categoria, capa } = Astro.props;
+const dataFmt = data.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+---
+
+<article class="card post-card">
+  <a href={`/blog/${slug}`} class="post-card__link" aria-label={titulo}>
+    <div class="post-card__capa" data-tem-capa={capa ? 'sim' : 'nao'}>
+      {capa ? (
+        <img src={capa} alt={titulo} loading="lazy" />
+      ) : (
+        <span class="post-card__inicial">{titulo.charAt(0)}</span>
+      )}
+    </div>
+    <div class="post-card__corpo">
+      <div class="post-card__meta">
+        <span class="tag">{categoria}</span>
+        <time datetime={data.toISOString()}>{dataFmt}</time>
+      </div>
+      <h3 class="post-card__titulo">{titulo}</h3>
+      <p class="post-card__resumo">{resumo}</p>
+      <span class="post-card__leia">Ler artigo →</span>
+    </div>
+  </a>
+</article>
+
+<style>
+  .post-card { height: 100%; }
+  .post-card__link { display: flex; flex-direction: column; height: 100%; color: inherit; }
+  .post-card__capa {
+    aspect-ratio: 16 / 10;
+    background: linear-gradient(135deg, var(--caramelo), var(--terracota));
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  .post-card__capa img { width: 100%; height: 100%; object-fit: cover; }
+  .post-card__inicial {
+    font-family: var(--serif);
+    font-size: 3.5rem;
+    color: rgba(255,255,255,0.85);
+  }
+  .post-card__corpo { padding: 1.4rem 1.5rem 1.6rem; display: flex; flex-direction: column; flex: 1; }
+  .post-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.82rem;
+    color: var(--tinta-suave);
+    margin-bottom: 0.9rem;
+  }
+  .post-card__titulo { font-size: 1.35rem; margin-bottom: 0.5rem; }
+  .post-card__link:hover .post-card__titulo { color: var(--primaria-escura); }
+  .post-card__resumo { color: var(--tinta-suave); font-size: 1rem; margin-bottom: 1.1rem; }
+  .post-card__leia { margin-top: auto; font-weight: 700; color: var(--primaria-escura); font-size: 0.95rem; }
+</style>

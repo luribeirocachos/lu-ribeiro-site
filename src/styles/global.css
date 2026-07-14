@@ -1,0 +1,205 @@
+/* ============================================================
+   Espaço Lu Ribeiro — Sistema visual
+   Clima: acolhedor, natural, sofisticado. Tons quentes de
+   terracota/caramelo sobre creme, com um verde-sálvia de apoio.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap');
+
+:root {
+  /* Paleta da marca Lu Ribeiro — dourado antigo, carvão, creme (extraída do logo) */
+  --creme: #f8f4ec;
+  --creme-2: #f1e9db;
+  --areia: #e7dcc7;
+  --terracota: #b58951;        /* dourado da marca (accent primário) */
+  --terracota-escuro: #997138; /* dourado profundo */
+  --caramelo: #c9a66e;         /* dourado claro */
+  --dourado: #b58951;
+  --salvia: #ab834f;           /* camel da marca */
+  --salvia-clara: #c9a66e;
+  --cafe: #2a2a2b;             /* carvão da marca (fundos escuros) */
+  --cafe-suave: #6b6459;       /* cinza quente (texto secundário) */
+  --branco: #ffffff;
+
+  /* Papéis */
+  --bg: var(--creme);
+  --superficie: var(--branco);
+  --tinta: var(--cafe);
+  --tinta-suave: var(--cafe-suave);
+  --primaria: var(--terracota);
+  --primaria-escura: var(--terracota-escuro);
+  --borda: #e6dcc9;
+
+  /* Tipografia */
+  --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Medidas */
+  --largura: 1180px;
+  --largura-texto: 720px;
+  --raio: 8px;
+  --raio-sm: 4px;
+  --sombra: 0 18px 50px -22px rgba(42, 42, 43, 0.4);
+  --sombra-sm: 0 8px 24px -14px rgba(42, 42, 43, 0.42);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-size: 16.5px;
+  line-height: 1.8;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--tinta);
+  margin: 0 0 0.4em;
+  letter-spacing: 0.005em;
+}
+
+h1 { font-size: clamp(2.9rem, 6.5vw, 4.6rem); }
+h2 { font-size: clamp(2.1rem, 4.5vw, 3.1rem); }
+h3 { font-size: clamp(1.4rem, 2.5vw, 1.8rem); }
+
+p { margin: 0 0 1.1em; }
+
+a {
+  color: var(--primaria-escura);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+a:hover { color: var(--terracota); }
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* ---------- Layout ---------- */
+.container {
+  width: 100%;
+  max-width: var(--largura);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.section {
+  padding-block: clamp(3.5rem, 8vw, 6rem);
+}
+
+.eyebrow {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primaria);
+  margin-bottom: 0.9rem;
+  display: block;
+}
+
+.lead {
+  font-size: 1.2rem;
+  color: var(--tinta-suave);
+  max-width: 40ch;
+}
+
+/* ---------- Botões ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 0.95rem 2rem;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+
+.btn-primario {
+  background: var(--primaria);
+  color: #fff;
+  box-shadow: var(--sombra-sm);
+}
+.btn-primario:hover { background: var(--primaria-escura); color: #fff; }
+
+.btn-contorno {
+  background: transparent;
+  color: var(--tinta);
+  border-color: var(--tinta);
+}
+.btn-contorno:hover { border-color: var(--primaria); background: var(--primaria); color: #fff; }
+
+/* ---------- Cartões ---------- */
+.card {
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  overflow: hidden;
+  box-shadow: var(--sombra-sm);
+  transition: transform 0.2s ease, box-shadow 0.25s ease;
+}
+.card:hover { transform: translateY(-4px); box-shadow: var(--sombra); }
+
+/* ---------- Utilidades ---------- */
+.grid { display: grid; gap: 1.75rem; }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.center { text-align: center; }
+.mx-auto { margin-inline: auto; }
+
+.tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--terracota-escuro);
+  background: var(--creme-2);
+  border: 1px solid var(--borda);
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+}
+
+.text-creme { color: var(--creme); }
+
+/* ---------- Conteúdo de artigo (prose) ---------- */
+.prose {
+  max-width: var(--largura-texto);
+  margin-inline: auto;
+  font-size: 1.12rem;
+}
+.prose h2 { margin-top: 2.2em; }
+.prose h3 { margin-top: 1.8em; }
+.prose img { border-radius: var(--raio); margin-block: 1.8em; }
+.prose ul, .prose ol { padding-left: 1.3em; margin-bottom: 1.2em; }
+.prose li { margin-bottom: 0.5em; }
+.prose blockquote {
+  border-left: 4px solid var(--caramelo);
+  background: var(--creme-2);
+  margin: 1.8em 0;
+  padding: 0.5em 1.4em;
+  border-radius: 0 var(--raio-sm) var(--raio-sm) 0;
+  font-style: italic;
+  color: var(--cafe-suave);
+}
+.prose strong { color: var(--tinta); }

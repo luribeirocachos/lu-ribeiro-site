@@ -1,0 +1,89 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.rascunho)).sort(
+  (a, b) => b.data.data.valueOf() - a.data.data.valueOf()
+);
+
+const categorias = ['Todos', ...new Set(posts.map((p) => p.data.categoria))];
+---
+
+<Base titulo="Blog" descricao="Dicas de cuidados com cabelo cacheado, terapia capilar, tratamentos e mechas — direto do Espaço Lu Ribeiro.">
+  <section class="cabecalho-pagina">
+    <div class="container center">
+      <span class="eyebrow">Blog</span>
+      <h1>Tudo sobre cachos, tratamento e autoestima</h1>
+      <p class="lead mx-auto">
+        Conteúdo pra você entender, cuidar e amar o seu cabelo — escrito por quem vive isso todo dia.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="filtros" role="tablist" aria-label="Filtrar por categoria">
+        {categorias.map((cat, i) => (
+          <button class:list={['filtro', { 'filtro--ativo': i === 0 }]} data-cat={cat}>{cat}</button>
+        ))}
+      </div>
+
+      {posts.length === 0 ? (
+        <p class="center" style="color: var(--tinta-suave);">Em breve, os primeiros artigos. 💛</p>
+      ) : (
+        <div class="grid grid-3" id="lista-posts">
+          {posts.map((post) => (
+            <div class="item-post" data-cat={post.data.categoria}>
+              <PostCard
+                slug={post.id}
+                titulo={post.data.titulo}
+                resumo={post.data.resumo}
+                data={post.data.data}
+                categoria={post.data.categoria}
+                capa={post.data.capa}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .cabecalho-pagina {
+    background: radial-gradient(900px 400px at 50% -20%, var(--areia), transparent), var(--creme);
+    padding-block: clamp(3rem, 7vw, 5rem);
+  }
+  .filtros { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin-bottom: 2.5rem; }
+  .filtro {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 0.92rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--borda);
+    background: var(--branco);
+    color: var(--tinta-suave);
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .filtro:hover { border-color: var(--primaria); color: var(--primaria-escura); }
+  .filtro--ativo { background: var(--primaria); border-color: var(--primaria); color: #fff; }
+</style>
+
+<script>
+  const filtros = document.querySelectorAll<HTMLButtonElement>('.filtro');
+  const itens = document.querySelectorAll<HTMLElement>('.item-post');
+  filtros.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filtros.forEach((b) => b.classList.remove('filtro--ativo'));
+      btn.classList.add('filtro--ativo');
+      const cat = btn.dataset.cat;
+      itens.forEach((item) => {
+        item.style.display = cat === 'Todos' || item.dataset.cat === cat ? '' : 'none';
+      });
+    });
+  });
+</script>

@@ -1,0 +1,259 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PostCard from '../components/PostCard.astro';
+import { SITE, linkWhatsApp, CONTATO } from '../consts';
+
+const posts = (await getCollection('blog', ({ data }) => !data.rascunho))
+  .sort((a, b) => b.data.data.valueOf() - a.data.data.valueOf())
+  .slice(0, 3);
+
+const servicos = [
+  { nome: 'Corte Cacheado', desc: 'Corte que valoriza o formato natural do seu cacho, fio a fio.', icone: '✂️' },
+  { nome: 'Terapia Capilar', desc: 'Diagnóstico e tratamento do couro cabeludo para cachos saudáveis.', icone: '🌿' },
+  { nome: 'Tratamentos', desc: 'Hidratação, nutrição e reconstrução no cronograma certo pra você.', icone: '💧' },
+  { nome: 'Mechas em Cachos', desc: 'Iluminado sob medida, sem abrir mão da definição e da saúde do fio.', icone: '✨' },
+];
+---
+
+<Base>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__texto">
+        <span class="eyebrow">Salão de cachos · {SITE.cidade}</span>
+        <h1>Seu cacho merece<br /><em>cuidado de verdade.</em></h1>
+        <p class="lead">
+          No Espaço Lu Ribeiro a gente cuida do seu cabelo cacheado de raiz —
+          com corte, tratamento, terapia capilar e mechas feitos pra realçar o
+          que é seu.
+        </p>
+        <div class="hero__acoes">
+          <a href={linkWhatsApp()} class="btn btn-primario" target="_blank" rel="noopener">Agendar meu horário</a>
+          <a href="/servicos" class="btn btn-contorno">Ver serviços</a>
+        </div>
+        <p class="hero__ig">
+          Acompanhe no Instagram
+          <a href={CONTATO.instagram} target="_blank" rel="noopener">{CONTATO.instagramHandle}</a>
+        </p>
+      </div>
+      <div class="hero__arte">
+        <div class="hero__foto">
+          <img
+            src="/fotos/cachos-loiro.jpg"
+            alt="Cachos loiros iluminados e definidos, finalizados no Espaço Lu Ribeiro"
+            width="361" height="640" loading="eager"
+          />
+        </div>
+        <div class="hero__card">
+          <span class="hero__card-emoji">💛</span>
+          <p>“Aqui a cliente aprende a amar o próprio cabelo.”</p>
+          <small>— Lu Ribeiro</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="section">
+    <div class="container">
+      <div class="center" style="margin-bottom: 2.5rem;">
+        <span class="eyebrow">O que fazemos</span>
+        <h2>Cuidado completo, do fio ao couro cabeludo</h2>
+      </div>
+      <div class="grid grid-3">
+        {servicos.map((s) => (
+          <div class="card servico">
+            <span class="servico__icone">{s.icone}</span>
+            <h3>{s.nome}</h3>
+            <p>{s.desc}</p>
+          </div>
+        ))}
+      </div>
+      <div class="center" style="margin-top: 2.5rem;">
+        <a href="/servicos" class="btn btn-contorno">Ver todos os serviços</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAIXA TERAPIA -->
+  <section class="faixa">
+    <div class="container faixa__inner">
+      <div>
+        <span class="eyebrow">Nosso diferencial</span>
+        <h2 class="text-creme">Terapia capilar: a raiz da beleza</h2>
+        <p class="faixa__texto">
+          Cabelo bonito começa num couro cabeludo saudável. Antes de qualquer
+          tratamento, a gente entende o seu — pra tratar a causa, não só o
+          sintoma. É assim que o resultado dura.
+        </p>
+        <a href="/servicos" class="btn btn-primario">Entender a terapia capilar</a>
+      </div>
+      <div class="faixa__numeros">
+        <div><strong>+8</strong><span>anos cuidando de cachos</span></div>
+        <div><strong>100%</strong><span>foco em cabelo cacheado</span></div>
+        <div><strong>1:1</strong><span>atendimento com hora marcada</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  {posts.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="secao-topo">
+          <div>
+            <span class="eyebrow">Do nosso blog</span>
+            <h2>Dicas pra cuidar dos seus cachos em casa</h2>
+          </div>
+          <a href="/blog" class="btn btn-contorno">Ver o blog</a>
+        </div>
+        <div class="grid grid-3">
+          {posts.map((post) => (
+            <PostCard
+              slug={post.id}
+              titulo={post.data.titulo}
+              resumo={post.data.resumo}
+              data={post.data.data}
+              categoria={post.data.categoria}
+              capa={post.data.capa}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- INSTAGRAM -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="secao-topo">
+        <div>
+          <span class="eyebrow">No dia a dia</span>
+          <h2>Do nosso Instagram</h2>
+        </div>
+        <a href={CONTATO.instagram} target="_blank" rel="noopener" class="btn btn-contorno">
+          Seguir {CONTATO.instagramHandle}
+        </a>
+      </div>
+      <div class="ig-grid">
+        {['espaco', 'lu-video', 'atendimento', 'crescihair', 'atendimento2'].map((f) => (
+          <a href={CONTATO.instagram} target="_blank" rel="noopener" class="ig-item" aria-label="Ver no Instagram">
+            <img src={`/fotos/${f}.jpg`} alt="Publicação do Instagram do Espaço Lu Ribeiro" loading="lazy" />
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="container">
+    <div class="cta-final">
+      <h2 class="text-creme">Pronta pra transformar seus cachos?</h2>
+      <p>Agende pelo WhatsApp e venha viver a experiência Lu Ribeiro.</p>
+      <a href={linkWhatsApp()} class="btn btn-primario" target="_blank" rel="noopener">Agendar agora</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Hero */
+  .hero {
+    background:
+      radial-gradient(1200px 500px at 80% -10%, var(--areia), transparent),
+      var(--creme);
+    padding-block: clamp(2.5rem, 6vw, 5rem);
+  }
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .hero h1 em { font-style: italic; color: var(--primaria); }
+  .hero__acoes { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.8rem 0 1.4rem; }
+  .hero__ig { font-size: 0.95rem; color: var(--tinta-suave); }
+  .hero__ig a { font-weight: 700; margin-left: 0.3rem; }
+
+  .hero__arte { position: relative; display: flex; justify-content: center; }
+  .hero__foto {
+    width: 100%;
+    max-width: 380px;
+    aspect-ratio: 361 / 640;
+    border-radius: 26px;
+    overflow: hidden;
+    border: 6px solid #fff;
+    box-shadow: var(--sombra);
+    rotate: 1.5deg;
+  }
+  .hero__foto img { width: 100%; height: 100%; object-fit: cover; }
+  .hero__card {
+    position: absolute;
+    left: -0.5rem;
+    bottom: -1.2rem;
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra);
+    padding: 1.2rem 1.4rem;
+    max-width: 230px;
+    text-align: center;
+  }
+  .hero__card-emoji { font-size: 2rem; }
+  .hero__card p { font-family: var(--serif); font-style: italic; font-size: 1.15rem; margin: 0.6rem 0 0.4rem; }
+  .hero__card small { color: var(--primaria-escura); font-weight: 700; }
+
+  /* Serviços */
+  .servico { padding: 1.8rem; text-align: center; }
+  .servico__icone { font-size: 2.2rem; display: block; margin-bottom: 0.6rem; }
+  .servico p { color: var(--tinta-suave); font-size: 1rem; margin: 0; }
+
+  /* Faixa terapia */
+  .faixa { background: var(--cafe); color: var(--creme); padding-block: clamp(3rem, 7vw, 5rem); }
+  .faixa__inner { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; align-items: center; }
+  .faixa__texto { color: #e8dccb; font-size: 1.1rem; margin-bottom: 1.6rem; }
+  .faixa__numeros { display: grid; gap: 1.2rem; }
+  .faixa__numeros div {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--raio);
+    padding: 1.2rem 1.4rem;
+  }
+  .faixa__numeros strong { font-family: var(--serif); font-size: 2rem; color: var(--caramelo); display: block; }
+  .faixa__numeros span { color: #e8dccb; font-size: 0.95rem; }
+
+  /* Blog topo */
+  .secao-topo { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; margin-bottom: 2.2rem; flex-wrap: wrap; }
+
+  /* Instagram */
+  .ig-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.8rem; }
+  .ig-item {
+    aspect-ratio: 9 / 16;
+    border-radius: var(--raio-sm);
+    overflow: hidden;
+    box-shadow: var(--sombra-sm);
+    display: block;
+  }
+  .ig-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease; }
+  .ig-item:hover img { transform: scale(1.06); }
+  @media (max-width: 720px) {
+    .ig-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* CTA final */
+  .cta-final {
+    background: linear-gradient(135deg, var(--terracota), var(--terracota-escuro));
+    border-radius: 28px;
+    padding: clamp(2.5rem, 6vw, 4rem);
+    text-align: center;
+    margin-block: 1rem 3rem;
+  }
+  .cta-final p { color: #fbe9dc; font-size: 1.15rem; margin-bottom: 1.6rem; }
+  .cta-final .btn-primario { background: #fff; color: var(--terracota-escuro); }
+  .cta-final .btn-primario:hover { background: var(--creme); }
+
+  @media (max-width: 860px) {
+    .hero__inner, .faixa__inner { grid-template-columns: 1fr; }
+    .hero__arte { min-height: 260px; }
+  }
+</style>

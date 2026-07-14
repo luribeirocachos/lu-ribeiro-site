@@ -1,0 +1,86 @@
+---
+import Base from '../layouts/Base.astro';
+import { linkWhatsApp } from '../consts';
+
+// Galeria de antes/depois. Troque as imagens em /public/transformacoes
+// e ajuste as legendas. Enquanto não houver foto, aparece um placeholder bonito.
+const transformacoes = [
+  { titulo: 'Retomada dos cachos', desc: 'Corte + cronograma capilar', antes: '', depois: '' },
+  { titulo: 'Loiro nos cachos', desc: 'Mechas preservando a definição', antes: '', depois: '' },
+  { titulo: 'Couro cabeludo saudável', desc: 'Terapia capilar — 3 meses', antes: '', depois: '' },
+  { titulo: 'Volume com forma', desc: 'Corte cacheado personalizado', antes: '', depois: '' },
+];
+---
+
+<Base titulo="Transformações" descricao="Antes e depois reais de clientes do Espaço Lu Ribeiro — cachos tratados, cortados e valorizados.">
+  <section class="cabecalho-pagina">
+    <div class="container center">
+      <span class="eyebrow">Transformações</span>
+      <h1>Resultados reais, cachos de verdade</h1>
+      <p class="lead mx-auto">
+        Cada transformação é uma história de reconciliação com o próprio cabelo. Dá uma olhada.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 2rem;">
+    <div class="container">
+      <div class="grid grid-2">
+        {transformacoes.map((t) => (
+          <figure class="card transf">
+            <div class="transf__par">
+              <div class="transf__lado">
+                {t.antes ? <img src={t.antes} alt={`Antes — ${t.titulo}`} loading="lazy" /> : <span class="transf__ph">antes</span>}
+                <span class="transf__rotulo">Antes</span>
+              </div>
+              <div class="transf__lado">
+                {t.depois ? <img src={t.depois} alt={`Depois — ${t.titulo}`} loading="lazy" /> : <span class="transf__ph transf__ph--depois">depois</span>}
+                <span class="transf__rotulo transf__rotulo--depois">Depois</span>
+              </div>
+            </div>
+            <figcaption class="transf__legenda">
+              <strong>{t.titulo}</strong>
+              <span>{t.desc}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <div class="center" style="margin-top: 3rem;">
+        <h2>A próxima transformação pode ser a sua</h2>
+        <a href={linkWhatsApp('Oi Lu! Vi as transformações no site e quero a minha 💛')} class="btn btn-primario" target="_blank" rel="noopener">
+          Quero agendar
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .cabecalho-pagina {
+    background: radial-gradient(900px 400px at 50% -20%, var(--areia), transparent), var(--creme);
+    padding-block: clamp(3rem, 7vw, 5rem);
+  }
+  .transf { padding: 0.6rem; }
+  .transf__par { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+  .transf__lado { position: relative; aspect-ratio: 3/4; border-radius: var(--raio-sm); overflow: hidden; }
+  .transf__lado img { width: 100%; height: 100%; object-fit: cover; }
+  .transf__ph {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--areia), var(--creme-2));
+    color: var(--tinta-suave);
+    font-style: italic;
+  }
+  .transf__ph--depois { background: linear-gradient(135deg, var(--caramelo), var(--terracota)); color: rgba(255,255,255,0.9); }
+  .transf__rotulo {
+    position: absolute; top: 0.6rem; left: 0.6rem;
+    background: rgba(58,44,34,0.75); color: #fff;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+    padding: 0.2rem 0.6rem; border-radius: 999px;
+  }
+  .transf__rotulo--depois { background: var(--terracota-escuro); }
+  .transf__legenda { padding: 1rem 0.8rem 0.6rem; display: flex; flex-direction: column; }
+  .transf__legenda strong { font-family: var(--serif); font-size: 1.2rem; }
+  .transf__legenda span { color: var(--tinta-suave); font-size: 0.95rem; }
+</style>
