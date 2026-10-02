@@ -82,6 +82,7 @@ const zap = (nome: string) => linkWhatsApp(`Oi! Vi o catálogo ${marca === 'Espa
       <header class="categoria__topo">
         <h2>{c.titulo}</h2>
         {c.intro && <p>{c.intro}</p>}
+        {c.aviso && <p class="aviso" set:html={c.aviso} />}
       </header>
       <div class="grade">
         {c.itens.map((item) => (
@@ -268,6 +269,16 @@ const zap = (nome: string) => linkWhatsApp(`Oi! Vi o catálogo ${marca === 'Espa
 .galeria__seta--ant { left: 0.6rem; }
 .galeria__seta--prox { right: 0.6rem; }
 @media (hover: none) { .galeria__seta { display: none; } }
+.categoria__topo .aviso {
+  margin-top: 0.9rem;
+  display: inline-block;
+  color: var(--tinta);
+  background: var(--creme-2);
+  border: 1px solid var(--primaria);
+  border-left: 4px solid var(--primaria);
+  padding: 0.6rem 1rem;
+  border-radius: 2px;
+}
 .selo {
   align-self: flex-start;
   margin: 0 0 0.8rem;

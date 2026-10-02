@@ -39,6 +39,7 @@ export interface Categoria {
   id: string;
   titulo: string;
   intro?: string;
+  aviso?: string;   // faixa dourada de destaque abaixo do título da categoria (aceita <strong>)
   itens: ItemCatalogo[];
 }
 
@@ -50,6 +51,7 @@ export const CATEGORIAS: Categoria[] = [
     id: 'corte',
     titulo: 'Corte',
     intro: 'Todo corte começa com uma consultoria dos seus cachos: curvatura, densidade, porosidade e estrutura.',
+    aviso: '<strong>Terça do Corte:</strong> toda última terça do mês, corte com <strong>R$30 de desconto</strong>.',
     itens: [
       {
         nome: 'Corte Lu Ribeiro',
@@ -68,11 +70,10 @@ export const CATEGORIAS: Categoria[] = [
         inclui: ['Consultoria de corte', 'Corte com técnicas para cachos', 'Massagem relaxante', 'Indicação de produtos'],
       },
       {
-        nome: 'Terça do Corte: Corte + Curly Essencial',
+        nome: 'Combo Corte + Curly Essencial',
         precoFixo: 280,   // a Lu passou R$280 em 02/10/2026 (o painel ainda tinha 260)
-        selo: 'Toda última terça do mês',
         foto: '/fotos/catalogo/combo-corte-essencial.jpg',
-        desc: 'Corte e o nosso protocolo Curly Essencial no mesmo atendimento, em condição especial na Terça do Corte.',
+        desc: 'Corte e o nosso protocolo Curly Essencial no mesmo atendimento.',
       },
       {
         nome: 'Corte Infantil',
