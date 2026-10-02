@@ -71,7 +71,8 @@ export const CATEGORIAS: Categoria[] = [
       },
       {
         nome: 'Combo Corte + Curly Essencial',
-        precoFixo: 280,   // a Lu passou R$280 em 02/10/2026 (o painel ainda tinha 260)
+        painel: 'Combo corte e Essencial',
+        reserva: 280,
         foto: '/fotos/catalogo/combo-corte-essencial.jpg',
         desc: 'Corte e o nosso protocolo Curly Essencial no mesmo atendimento.',
       },
