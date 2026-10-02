@@ -5,25 +5,25 @@ import { linkWhatsApp } from '../consts';
 const servicos = [
   {
     nome: 'Corte Cacheado',
-    icone: '✂️',
+    foto: '/fotos/servicos/corte.jpg',
     desc: 'Corte pensado pro seu tipo de cacho, seco ou no método adequado, respeitando o volume e o formato natural. Nada de tesourada genérica — cada fio no lugar certo.',
     itens: ['Avaliação do padrão de curvatura', 'Corte a seco ou molhado', 'Finalização e dicas de manutenção'],
   },
   {
     nome: 'Terapia Capilar',
-    icone: '🌿',
+    foto: '/fotos/servicos/terapia.jpg',
     desc: 'O tratamento que começa na raiz — literalmente. Avaliamos o couro cabeludo e montamos um protocolo pra tratar oleosidade, ressecamento, queda e caspa. Base pra qualquer cabelo saudável.',
     itens: ['Diagnóstico do couro cabeludo', 'Protocolo personalizado', 'Acompanhamento de evolução'],
   },
   {
-    nome: 'Tratamentos & Cronograma',
-    icone: '💧',
-    desc: 'Hidratação, nutrição e reconstrução na medida certa. Montamos o cronograma capilar ideal pro seu momento, pra devolver força, brilho e elasticidade ao fio.',
-    itens: ['Hidratação profunda', 'Nutrição e reconstrução', 'Cronograma pra fazer em casa'],
+    nome: 'Protocolos Capilares',
+    foto: '/fotos/servicos/protocolos.jpg',
+    desc: 'Protocolos exclusivos do Espaço, como o Curly Essencial e o Vital Curly, montados pro momento do seu cabelo — pra devolver maciez, brilho, definição e movimento.',
+    itens: ['Protocolo personalizado', 'Definição e movimento', 'Rotina de cuidados pra casa'],
   },
   {
     nome: 'Mechas em Cachos',
-    icone: '✨',
+    foto: '/fotos/servicos/mechas.jpg',
     desc: 'Iluminado e coloração pensados pra cabelo cacheado — realçando a textura sem comprometer a definição nem a saúde do fio. Loiro dos sonhos, cacho preservado.',
     itens: ['Mechas e iluminado', 'Técnicas que preservam o cacho', 'Matização e cuidado pós-química'],
   },
@@ -46,7 +46,7 @@ const servicos = [
       <div class="servicos-lista">
         {servicos.map((s, i) => (
           <div class="servico-bloco" data-par={i % 2 === 0 ? 'sim' : 'nao'}>
-            <div class="servico-bloco__icone">{s.icone}</div>
+            <img class="servico-bloco__foto" src={s.foto} alt={`${s.nome} no Espaço Lu Ribeiro`} loading="lazy" width="675" height="900" />
             <div class="servico-bloco__conteudo">
               <h2>{s.nome}</h2>
               <p>{s.desc}</p>
@@ -66,10 +66,10 @@ const servicos = [
   <section class="container">
     <div class="nota-precos">
       <p>
-        <strong>E os valores?</strong> Cada cabelo é único, então o valor depende do comprimento,
-        do estado do fio e do que ele precisa. Chama no WhatsApp que a gente te passa um orçamento certinho. 💛
+        <strong>E os valores?</strong> Estão todos no nosso catálogo, atualizados. Os de cor e mechas são
+        "a partir de" e confirmados na avaliação, porque dependem do comprimento e do momento do fio. 💛
       </p>
-      <a href={linkWhatsApp()} class="btn btn-primario" target="_blank" rel="noopener">Pedir orçamento</a>
+      <a href="/catalogo" class="btn btn-primario">Ver catálogo e valores</a>
     </div>
   </section>
 </Base>
@@ -82,7 +82,7 @@ const servicos = [
   .servicos-lista { display: flex; flex-direction: column; gap: 1.5rem; }
   .servico-bloco {
     display: grid;
-    grid-template-columns: 120px 1fr;
+    grid-template-columns: 220px 1fr;
     gap: 2rem;
     align-items: center;
     background: var(--branco);
@@ -91,12 +91,12 @@ const servicos = [
     box-shadow: var(--sombra-sm);
     padding: 2rem 2.2rem;
   }
-  .servico-bloco__icone {
-    font-size: 3rem;
-    width: 120px; height: 120px;
-    display: grid; place-items: center;
-    background: linear-gradient(135deg, var(--creme-2), var(--areia));
-    border-radius: 50%;
+  .servico-bloco__foto {
+    width: 220px; height: 260px;
+    object-fit: cover; object-position: center 35%;
+    border-radius: 120px 120px 4px 4px;
+    border: 1px solid var(--primaria);
+    outline: 5px solid var(--branco);
   }
   .servico-bloco__conteudo h2 { font-size: 1.7rem; margin-bottom: 0.4rem; }
   .servico-bloco__conteudo p { color: var(--tinta-suave); }
@@ -123,7 +123,7 @@ const servicos = [
 
   @media (max-width: 640px) {
     .servico-bloco { grid-template-columns: 1fr; text-align: center; }
-    .servico-bloco__icone { margin-inline: auto; }
+    .servico-bloco__foto { margin-inline: auto; }
     .servico-bloco__itens { justify-content: center; }
   }
 </style>

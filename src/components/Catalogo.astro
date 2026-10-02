@@ -1,0 +1,378 @@
+---
+import { linkWhatsApp } from '../consts';
+import type { Categoria, ClubeCatalogo, ItemCatalogo } from '../data/catalogo';
+import { buscarPrecos, chave, reais } from '../lib/precos';
+
+interface Props {
+  eyebrow: string;
+  titulo: string;
+  lead: string;
+  marca: string;
+  categorias: Categoria[];
+  clubes: ClubeCatalogo[];
+}
+const { eyebrow, titulo, lead, marca, categorias: CATEGORIAS, clubes: CLUBES } = Astro.props;
+
+const precos = await buscarPrecos();
+
+// Painel respondeu mas o nome não está lá (renomearam?) → "sob consulta", nunca um preço velho.
+function precoDe(painel: string | undefined, reserva: number | undefined) {
+  if (!painel) return null;
+  if (!precos.aoVivo) return reserva ? { preco: reserva, aPartir: false } : null;
+  const p = precos.servicos.get(chave(painel));
+  if (!p) console.warn('[catalogo] não achei no painel:', painel);
+  return p && p.preco > 0 ? p : null;
+}
+
+function rotuloPreco(item: ItemCatalogo) {
+  if (item.modo === 'avaliacao') return { texto: 'Mediante avaliação', aPartir: false };
+  if (item.modo === 'consulta') return { texto: 'Sob consulta', aPartir: false };
+  if (item.precoFixo) return { texto: reais(item.precoFixo), aPartir: false };
+  if (item.variantes) {
+    const vs = item.variantes.map((v) => precoDe(v.painel, v.reserva)).filter((p) => p) as { preco: number; aPartir: boolean }[];
+    if (!vs.length) return { texto: 'Sob consulta', aPartir: false };
+    return { texto: reais(Math.min(...vs.map((p) => p.preco))), aPartir: true };
+  }
+  const p = precoDe(item.painel, item.reserva);
+  return p ? { texto: reais(p.preco), aPartir: p.aPartir } : { texto: 'Sob consulta', aPartir: false };
+}
+
+const categorias = CATEGORIAS.map((c) => ({
+  ...c,
+  itens: c.itens.map((item) => ({
+    ...item,
+    rotulo: rotuloPreco(item),
+    linhas: (item.soAPartir ? [] : item.variantes || []).map((v) => {
+      const p = precoDe(v.painel, v.reserva);
+      return { rotulo: v.rotulo, texto: p ? (p.aPartir ? 'a partir de ' : '') + reais(p.preco) : 'sob consulta' };
+    }),
+  })),
+}));
+
+const clubes = CLUBES.map((c) => {
+  const vivo = precos.aoVivo ? precos.clubes.get(chave(c.painel)) : c.reserva;
+  if (!vivo || !(vivo.preco > 0)) return null;
+  const economia = vivo.valor_cheio > vivo.preco ? vivo.valor_cheio - vivo.preco : 0;
+  return { ...c, ...vivo, economia };
+}).filter((c) => c) as (typeof CLUBES[number] & { preco: number; sessoes: number; validade: number; economia: number })[];
+
+const zap = (nome: string) => linkWhatsApp(`Oi! Vi o catálogo ${marca === 'Espaço Lu Ribeiro' ? 'no site' : 'da ' + marca + ' no site'} e quero agendar: ${nome} 💛`);
+---
+
+
+<section class="cabecalho-pagina">
+  <div class="container center">
+    <span class="eyebrow">{eyebrow}</span>
+    <h1>{titulo}</h1>
+    <p class="lead mx-auto" set:html={lead} />
+    <slot />
+  </div>
+</section>
+
+<nav class="atalhos" aria-label="Categorias do catálogo">
+  <div class="container atalhos__trilho">
+    {categorias.map((c) => <a href={`#${c.id}`}>{c.titulo}</a>)}
+    {clubes.length > 0 && <a href="#clubes">Clubes</a>}
+  </div>
+</nav>
+
+<div class="container catalogo">
+  {categorias.map((c) => (
+    <section id={c.id} class="categoria">
+      <header class="categoria__topo">
+        <h2>{c.titulo}</h2>
+        {c.intro && <p>{c.intro}</p>}
+      </header>
+      <div class="grade">
+        {c.itens.map((item) => (
+          <article class:list={["cartao", { "cartao--foto": item.foto || item.fotos }]}>
+            {item.fotos && (
+              <div class="galeria" data-galeria>
+                <div class="galeria__trilho">
+                  {item.fotos.map((src, i) => (
+                    <img class="cartao__foto" src={src} alt={`${item.nome}, foto ${i + 1} de ${item.fotos!.length}, ${marca}`} loading="lazy" width="675" height="900" />
+                  ))}
+                </div>
+                <button type="button" class="galeria__seta galeria__seta--ant" data-passo="-1" aria-label="Foto anterior">‹</button>
+                <button type="button" class="galeria__seta galeria__seta--prox" data-passo="1" aria-label="Próxima foto">›</button>
+                <div class="galeria__pontos" aria-hidden="true">
+                  {item.fotos.map((_, i) => <span class:list={{ ativo: i === 0 }} />)}
+                </div>
+              </div>
+            )}
+            {!item.fotos && item.foto && (
+              <img class="cartao__foto" src={item.foto} alt={`${item.nome}, ${marca}`} loading="lazy" width="675" height="900" />
+            )}
+            {item.selo && <p class="selo">{item.selo}</p>}
+            <div class="cartao__topo">
+              <h3>{item.nome}</h3>
+              <p class="preco">
+                {item.rotulo.aPartir && <span class="preco__de">a partir de</span>}
+                <span class="preco__valor">{item.rotulo.texto}</span>
+              </p>
+            </div>
+            {item.desc && <p class="cartao__desc">{item.desc}</p>}
+            {item.linhas.length > 0 && (
+              <dl class="tamanhos">
+                {item.linhas.map((l) => (
+                  <div><dt>{l.rotulo}</dt><dd>{l.texto}</dd></div>
+                ))}
+              </dl>
+            )}
+            {item.inclui && (
+              <ul class="inclui">
+                {item.inclui.map((i) => <li>{i}</li>)}
+              </ul>
+            )}
+            <a class="cartao__agendar" href={zap(item.nome)} target="_blank" rel="noopener">
+              {item.modo === 'avaliacao' ? 'Agendar avaliação' : item.modo === 'consulta' ? 'Pedir valores' : 'Agendar'}
+              <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  {clubes.length > 0 && (
+    <section id="clubes" class="categoria">
+      <header class="categoria__topo">
+        <h2>Clubes</h2>
+        <p>Você assina o clube e ganha <strong>desconto nas sessões</strong>, <strong>muito mais tempo para usar</strong> e <strong>benefícios exclusivos</strong> só para quem é assinante.</p>
+      </header>
+      <div class="grade">
+        {clubes.map((c) => (
+          <article class="cartao cartao--clube">
+            <div class="cartao__topo">
+              <h3>{c.nome}</h3>
+              <p class="preco"><span class="preco__valor">{reais(c.preco)}</span></p>
+            </div>
+            <p class="cartao__meta">
+              {c.sessoes} sessões{c.validade ? ` · validade de ${c.validade} ${c.validade === 1 ? 'mês' : 'meses'}` : ''}
+            </p>
+            {c.desc && <p class="cartao__desc">{c.desc}</p>}
+            {c.economia > 0 && (
+              <p class="economia">Avulso sairia {reais(c.valor_cheio)}: economia de {reais(c.economia)}</p>
+            )}
+            <a class="cartao__agendar" href={zap(c.nome)} target="_blank" rel="noopener">
+              Quero assinar <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <div class="rodape-catalogo">
+    <p>
+      Valores "a partir de" variam conforme comprimento, volume e o momento do seu cabelo, e são confirmados
+      na avaliação com a especialista. Ficou com dúvida? A gente te ajuda a escolher. 💛
+    </p>
+    <a href={linkWhatsApp('Oi! Vi o catálogo no site e queria ajuda para escolher um serviço 💛')} class="btn btn-primario" target="_blank" rel="noopener">
+      Falar no WhatsApp
+    </a>
+  </div>
+</div>
+
+<style>
+.cabecalho-pagina {
+  background: radial-gradient(900px 400px at 50% -20%, var(--areia), transparent), var(--creme);
+  padding-block: clamp(3rem, 7vw, 5rem) clamp(2rem, 4vw, 3rem);
+}
+
+.atalhos {
+  position: sticky;
+  top: 96px;
+  z-index: 40;
+  background: color-mix(in srgb, var(--creme) 94%, transparent);
+  backdrop-filter: blur(8px);
+  border-block: 1px solid var(--borda);
+}
+.atalhos__trilho {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-block: 0.7rem;
+  scrollbar-width: none;
+}
+.atalhos__trilho::-webkit-scrollbar { display: none; }
+.atalhos a {
+  flex: none;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tinta);
+  padding: 0.45rem 0.95rem;
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  background: var(--branco);
+  text-decoration: none;
+}
+.atalhos a:hover { border-color: var(--primaria); color: var(--primaria-escura); }
+
+.catalogo { padding-block: 1rem 4rem; }
+.categoria { scroll-margin-top: 170px; padding-top: 2.6rem; }
+.categoria__topo { max-width: 62ch; margin-bottom: 1.4rem; }
+.categoria__topo h2 { margin-bottom: 0.25em; }
+.categoria__topo p { color: var(--tinta-suave); margin: 0; }
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
+  gap: 1rem;
+}
+.cartao {
+  display: flex;
+  flex-direction: column;
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 1.4rem 1.5rem 1.2rem;
+  box-shadow: var(--sombra-sm);
+}
+.cartao--foto { padding-top: 0; overflow: hidden; }
+.cartao__foto {
+  display: block;
+  width: calc(100% + 3rem);
+  margin: 0 -1.5rem 1.1rem;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center 35%;
+  background: var(--creme-2);
+}
+.galeria { position: relative; margin: 0 -1.5rem 1.1rem; }
+.galeria__trilho {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.galeria__trilho::-webkit-scrollbar { display: none; }
+.galeria .cartao__foto { flex: 0 0 100%; width: 100%; margin: 0; scroll-snap-align: start; }
+.galeria__pontos {
+  position: absolute; left: 0; right: 0; bottom: 0.7rem;
+  display: flex; justify-content: center; gap: 0.35rem;
+  pointer-events: none;
+}
+.galeria__pontos span { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.55); box-shadow: 0 0 2px rgba(0,0,0,0.35); }
+.galeria__pontos span.ativo { background: #fff; }
+.galeria__seta {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 34px; height: 34px; border-radius: 50%; border: none;
+  background: rgba(255,255,255,0.85); color: var(--tinta);
+  font-size: 1.4rem; line-height: 1; cursor: pointer;
+  display: grid; place-items: center; padding: 0 0 3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+.galeria__seta--ant { left: 0.6rem; }
+.galeria__seta--prox { right: 0.6rem; }
+@media (hover: none) { .galeria__seta { display: none; } }
+.selo {
+  align-self: flex-start;
+  margin: 0 0 0.8rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--ouro);
+  padding: 0.3rem 0.8rem;
+  border-radius: 2px;
+}
+.cartao__topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  border-bottom: 1px solid var(--borda);
+  padding-bottom: 0.7rem;
+  margin-bottom: 0.8rem;
+}
+.cartao h3 { font-size: 1.45rem; margin: 0; }
+.preco { margin: 0; text-align: right; flex: none; line-height: 1.2; }
+.preco__de {
+  display: block;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+.preco__valor {
+  font-family: var(--serif);
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--primaria-escura);
+  white-space: nowrap;
+}
+.cartao__desc { color: var(--tinta-suave); font-size: 0.93rem; line-height: 1.65; margin-bottom: 0.8rem; }
+.cartao__meta { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--salvia); margin: -0.2rem 0 0.6rem; }
+
+.tamanhos { margin: 0 0 0.9rem; display: grid; gap: 0.15rem; }
+.tamanhos div { display: flex; justify-content: space-between; font-size: 0.92rem; border-bottom: 1px dotted var(--borda); padding-block: 0.2rem; }
+.tamanhos dt { color: var(--tinta); }
+.tamanhos dd { margin: 0; color: var(--tinta-suave); }
+
+.inclui { list-style: none; padding: 0; margin: 0 0 0.9rem; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.inclui li {
+  font-size: 0.76rem;
+  color: var(--cafe-suave);
+  background: var(--creme-2);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+}
+.economia { font-size: 0.86rem; color: var(--primaria-escura); font-weight: 500; margin-bottom: 0.8rem; }
+
+.cartao__agendar {
+  margin-top: auto;
+  align-self: flex-start;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primaria-escura);
+  text-decoration: none;
+  padding-top: 0.3rem;
+}
+.cartao__agendar:hover { color: var(--tinta); }
+.cartao__agendar span { transition: transform 0.2s; display: inline-block; }
+.cartao__agendar:hover span { transform: translateX(3px); }
+
+.rodape-catalogo {
+  display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+  background: var(--creme-2);
+  border: 1px dashed var(--caramelo);
+  border-radius: var(--raio);
+  padding: 1.8rem 2rem;
+  margin-top: 3rem;
+}
+.rodape-catalogo p { margin: 0; color: var(--cafe-suave); max-width: 62ch; }
+
+@media (max-width: 640px) {
+  .cartao { padding: 1.2rem 1.1rem 1rem; }
+  .cartao h3 { font-size: 1.3rem; }
+  .cartao__foto { width: calc(100% + 2.2rem); margin-inline: -1.1rem; aspect-ratio: 4 / 3; }
+  .galeria { margin-inline: -1.1rem; }
+  .galeria .cartao__foto { width: 100%; margin: 0; }
+  .rodape-catalogo { padding: 1.4rem 1.2rem; }
+}
+</style>
+
+<script>
+  // Bolinhas do carrossel acompanham a foto visível (arrastar com o dedo ou rolar).
+  document.querySelectorAll<HTMLElement>('[data-galeria]').forEach((g) => {
+    const trilho = g.querySelector<HTMLElement>('.galeria__trilho')!;
+    const pontos = g.querySelectorAll('.galeria__pontos span');
+    trilho.addEventListener('scroll', () => {
+      const i = Math.round(trilho.scrollLeft / trilho.clientWidth);
+      pontos.forEach((p, k) => p.classList.toggle('ativo', k === i));
+    }, { passive: true });
+    g.querySelectorAll<HTMLButtonElement>('[data-passo]').forEach((b) =>
+      b.addEventListener('click', () => {
+        const n = pontos.length, w = trilho.clientWidth;
+        const i = (Math.round(trilho.scrollLeft / w) + Number(b.dataset.passo) + n) % n;
+        trilho.scrollTo({ left: i * w, behavior: 'smooth' });
+      }),
+    );
+  });
+</script>

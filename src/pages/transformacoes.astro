@@ -2,13 +2,17 @@
 import Base from '../layouts/Base.astro';
 import { linkWhatsApp } from '../consts';
 
-// Galeria de antes/depois. Troque as imagens em /public/transformacoes
-// e ajuste as legendas. Enquanto não houver foto, aparece um placeholder bonito.
-const transformacoes = [
-  { titulo: 'Retomada dos cachos', desc: 'Corte + cronograma capilar', antes: '', depois: '' },
-  { titulo: 'Loiro nos cachos', desc: 'Mechas preservando a definição', antes: '', depois: '' },
-  { titulo: 'Couro cabeludo saudável', desc: 'Terapia capilar — 3 meses', antes: '', depois: '' },
-  { titulo: 'Volume com forma', desc: 'Corte cacheado personalizado', antes: '', depois: '' },
+// Galeria de antes/depois. Fotos em /public/fotos/transformacoes (mesma cliente, antes e depois).
+const T = (n: string) => ({ antes: `/fotos/transformacoes/${n}-antes.jpg`, depois: `/fotos/transformacoes/${n}-depois.jpg` });
+const transformacoes: { titulo: string; desc: string; antes: string; depois: string; hoje?: string }[] = [
+  { titulo: 'Retomada dos cachos', desc: 'Transição capilar: do liso ao cacho natural, crescendo saudável', ...T('transicao'), hoje: '/fotos/transformacoes/transicao-hoje.jpg' },
+  { titulo: 'Transição com iluminado', desc: 'Transição capilar: do liso ao cacho natural', ...T('transicao2') },
+  { titulo: 'O cacho de volta', desc: 'Transição capilar com corte personalizado', ...T('corte') },
+  { titulo: 'Cachos com forma', desc: 'Corte personalizado', ...T('definicao') },
+  { titulo: 'Ruivo com forma', desc: 'Corte que valoriza o volume e a cor', ...T('ruivo') },
+  { titulo: 'Iluminado nos cachos', desc: 'Mechas que iluminam sem perder a definição', ...T('iluminado') },
+  { titulo: 'Corte que dá forma', desc: 'Corte personalizado', ...T('corte2') },
+  { titulo: 'Crespo valorizado', desc: 'Corte, cor e saúde para os fios, sem danificar a curvatura', ...T('crespo') },
 ];
 ---
 
@@ -27,8 +31,8 @@ const transformacoes = [
     <div class="container">
       <div class="grid grid-2">
         {transformacoes.map((t) => (
-          <figure class="card transf">
-            <div class="transf__par">
+          <figure class:list={['card', 'transf', { 'transf--3': t.hoje }]}>
+            <div class:list={['transf__par', { 'transf__par--3': t.hoje }]}>
               <div class="transf__lado">
                 {t.antes ? <img src={t.antes} alt={`Antes — ${t.titulo}`} loading="lazy" /> : <span class="transf__ph">antes</span>}
                 <span class="transf__rotulo">Antes</span>
@@ -37,6 +41,12 @@ const transformacoes = [
                 {t.depois ? <img src={t.depois} alt={`Depois — ${t.titulo}`} loading="lazy" /> : <span class="transf__ph transf__ph--depois">depois</span>}
                 <span class="transf__rotulo transf__rotulo--depois">Depois</span>
               </div>
+              {t.hoje && (
+                <div class="transf__lado">
+                  <img src={t.hoje} alt={`Meses depois — ${t.titulo}`} loading="lazy" />
+                  <span class="transf__rotulo transf__rotulo--depois">Meses depois</span>
+                </div>
+              )}
             </div>
             <figcaption class="transf__legenda">
               <strong>{t.titulo}</strong>
@@ -45,6 +55,14 @@ const transformacoes = [
           </figure>
         ))}
       </div>
+
+      <figure class="card destaque">
+        <img src="/fotos/transformacoes/couro-90-dias.jpg" alt="Antes e depois do couro cabeludo após 90 dias de tratamento" loading="lazy" width="900" height="900" />
+        <figcaption class="transf__legenda">
+          <strong>Couro cabeludo saudável</strong>
+          <span>90 dias de Renova Therapy</span>
+        </figcaption>
+      </figure>
 
       <div class="center" style="margin-top: 3rem;">
         <h2>A próxima transformação pode ser a sua</h2>
@@ -62,7 +80,11 @@ const transformacoes = [
     padding-block: clamp(3rem, 7vw, 5rem);
   }
   .transf { padding: 0.6rem; }
+  .destaque { padding: 0.6rem; max-width: 560px; margin: 1.5rem auto 0; }
+  .destaque img { width: 100%; height: auto; display: block; border-radius: var(--raio-sm); }
   .transf__par { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+  .transf__par--3 { grid-template-columns: 1fr 1fr 1fr; }
+  .transf--3 { grid-column: 1 / -1; }
   .transf__lado { position: relative; aspect-ratio: 3/4; border-radius: var(--raio-sm); overflow: hidden; }
   .transf__lado img { width: 100%; height: 100%; object-fit: cover; }
   .transf__ph {

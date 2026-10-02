@@ -1,0 +1,20 @@
+---
+// Preços ao vivo do painel (ver src/lib/precos.ts). Renderiza no servidor e a Vercel
+// guarda a página pronta por 10 min — o painel recebe ~1 pedido a cada 10 min, não 1 por visita.
+export const prerender = false;
+
+import Base from '../layouts/Base.astro';
+import Catalogo from '../components/Catalogo.astro';
+import { VITTA_CATEGORIAS, VITTA_CLUBES } from '../data/catalogo';
+
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=86400');
+---
+
+<Base titulo="Vitta Santé" descricao="Vitta Santé: clínica de estética facial, corporal e bem-estar da Lu Ribeiro em Piracicaba, em construção. Serviços e valores.">
+  <Catalogo eyebrow="Vitta Santé"
+    titulo="Estética e bem-estar"
+    lead="A Vitta Santé é a nossa clínica de estética e bem-estar, <strong>em construção</strong>. Os atendimentos são feitos por <strong>Márcia Justino</strong> e <strong>Lu Ribeiro</strong>. Enquanto a clínica não fica pronta, eles acontecem aqui no Espaço Lu Ribeiro, e você já pode agendar pelo WhatsApp."
+    marca="Vitta Santé"
+    categorias={VITTA_CATEGORIAS}
+    clubes={VITTA_CLUBES} />
+</Base>

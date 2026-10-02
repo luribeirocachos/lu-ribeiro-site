@@ -6,7 +6,7 @@ const ano = new Date().getFullYear();
 <footer class="rodape">
   <div class="container rodape__grid">
     <div>
-      <img src="/logo/branco-web.png" alt="Espaço Lu Ribeiro" class="rodape__logo" width="560" height="327" />
+      <img src="/logo/dourado-web.png" alt="Espaço Lu Ribeiro" class="rodape__logo" width="560" height="327" />
       <p class="rodape__texto">{SITE.slogan}.<br />{SITE.cidade}.</p>
       <a href={CONTATO.instagram} target="_blank" rel="noopener" class="rodape__ig">
         {CONTATO.instagramHandle}
@@ -53,8 +53,9 @@ const ano = new Date().getFullYear();
 
 <style>
   .rodape {
-    background: var(--cafe);
-    color: var(--creme);
+    background: var(--creme-2);
+    color: var(--tinta);
+    border-top: 1px solid var(--primaria);
     padding-block: 3.5rem 1.5rem;
     margin-top: 2rem;
   }
@@ -73,16 +74,16 @@ const ano = new Date().getFullYear();
     font-size: 0.82rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--caramelo);
+    color: var(--primaria-escura);
     margin-bottom: 0.9rem;
   }
-  .rodape__texto { color: #e8dccb; opacity: 0.85; font-size: 0.98rem; }
-  .rodape__ig { color: var(--caramelo); font-weight: 600; }
-  .rodape__ig:hover { color: #fff; }
+  .rodape__texto { color: var(--tinta-suave); font-size: 0.98rem; }
+  .rodape__ig { color: var(--primaria-escura); font-weight: 600; }
+  .rodape__ig:hover { color: var(--tinta); }
   .rodape__lista { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.55rem; }
-  .rodape__lista a { color: #e8dccb; }
-  .rodape__lista a:hover { color: #fff; }
-  .rodape__lista--horas li { display: flex; justify-content: space-between; gap: 1rem; color: #e8dccb; font-size: 0.92rem; margin-top: 0.6rem; }
+  .rodape__lista a { color: var(--tinta-suave); }
+  .rodape__lista a:hover { color: var(--primaria-escura); }
+  .rodape__lista--horas li { display: flex; justify-content: space-between; gap: 1rem; color: var(--tinta-suave); font-size: 0.92rem; margin-top: 0.6rem; }
   .rodape .btn { margin-top: 1rem; }
   .rodape__base {
     display: flex;
@@ -91,9 +92,9 @@ const ano = new Date().getFullYear();
     gap: 0.5rem;
     margin-top: 3rem;
     padding-top: 1.5rem;
-    border-top: 1px solid rgba(255,255,255,0.12);
+    border-top: 1px solid var(--borda);
     font-size: 0.85rem;
-    color: #cbb9a3;
+    color: var(--tinta-suave);
   }
   @media (max-width: 860px) {
     .rodape__grid { grid-template-columns: 1fr 1fr; gap: 2rem; }

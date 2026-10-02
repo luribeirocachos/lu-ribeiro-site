@@ -34,6 +34,8 @@ export const CONTATO = {
 export const NAV: { label: string; href: string; externo?: boolean }[] = [
   { label: 'Início', href: '/' },
   { label: 'Serviços', href: '/servicos' },
+  { label: 'Catálogo', href: '/catalogo' },
+  { label: 'Vitta Santé', href: '/vitta-sante' },
   { label: 'Transformações', href: '/transformacoes' },
   { label: 'Blog', href: '/blog' },
   { label: 'Loja', href: 'https://caracolcachos.lojavirtualnuvem.com.br', externo: true },

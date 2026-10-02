@@ -1,0 +1,20 @@
+---
+// Preços ao vivo do painel (ver src/lib/precos.ts). Renderiza no servidor e a Vercel
+// guarda a página pronta por 10 min — o painel recebe ~1 pedido a cada 10 min, não 1 por visita.
+export const prerender = false;
+
+import Base from '../layouts/Base.astro';
+import Catalogo from '../components/Catalogo.astro';
+import { CATEGORIAS, CLUBES } from '../data/catalogo';
+
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=86400');
+---
+
+<Base titulo="Catálogo e valores" descricao="Catálogo de serviços e valores do Espaço Lu Ribeiro em Piracicaba: corte para cachos, protocolos capilares, terapia capilar, cor e mechas, noivas e clubes.">
+  <Catalogo eyebrow="Catálogo"
+    titulo="Serviços e valores"
+    lead="Tudo o que fazemos no Espaço, com os valores atualizados. Escolheu? É só tocar em <strong>Agendar</strong> que a conversa abre no nosso WhatsApp."
+    marca="Espaço Lu Ribeiro"
+    categorias={CATEGORIAS}
+    clubes={CLUBES} />
+</Base>

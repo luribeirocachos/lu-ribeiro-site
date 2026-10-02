@@ -9,10 +9,10 @@ const posts = (await getCollection('blog', ({ data }) => !data.rascunho))
   .slice(0, 3);
 
 const servicos = [
-  { nome: 'Corte Cacheado', desc: 'Corte que valoriza o formato natural do seu cacho, fio a fio.', icone: '✂️' },
-  { nome: 'Terapia Capilar', desc: 'Diagnóstico e tratamento do couro cabeludo para cachos saudáveis.', icone: '🌿' },
-  { nome: 'Tratamentos', desc: 'Hidratação, nutrição e reconstrução no cronograma certo pra você.', icone: '💧' },
-  { nome: 'Mechas em Cachos', desc: 'Iluminado sob medida, sem abrir mão da definição e da saúde do fio.', icone: '✨' },
+  { nome: 'Corte Cacheado', desc: 'Corte que valoriza o formato natural do seu cacho, fio a fio.', foto: '/fotos/servicos/corte.jpg' },
+  { nome: 'Terapia Capilar', desc: 'Diagnóstico e tratamento do couro cabeludo para cachos saudáveis.', foto: '/fotos/servicos/terapia.jpg' },
+  { nome: 'Protocolos', desc: 'Protocolos exclusivos pra devolver maciez, brilho, definição e movimento.', foto: '/fotos/servicos/protocolos.jpg' },
+  { nome: 'Mechas em Cachos', desc: 'Iluminado sob medida, sem abrir mão da definição e da saúde do fio.', foto: '/fotos/servicos/mechas.jpg' },
 ];
 ---
 
@@ -40,9 +40,9 @@ const servicos = [
       <div class="hero__arte">
         <div class="hero__foto">
           <img
-            src="/fotos/cachos-loiro.jpg"
-            alt="Cachos loiros iluminados e definidos, finalizados no Espaço Lu Ribeiro"
-            width="361" height="640" loading="eager"
+            src="/fotos/hero-lu.jpg"
+            alt="Lu Ribeiro, especialista em cachos, no Espaço Lu Ribeiro"
+            width="825" height="1100" loading="eager"
           />
         </div>
         <div class="hero__card">
@@ -61,10 +61,10 @@ const servicos = [
         <span class="eyebrow">O que fazemos</span>
         <h2>Cuidado completo, do fio ao couro cabeludo</h2>
       </div>
-      <div class="grid grid-3">
+      <div class="grid grid-4">
         {servicos.map((s) => (
           <div class="card servico">
-            <span class="servico__icone">{s.icone}</span>
+            <img class="servico__foto" src={s.foto} alt={`${s.nome} no Espaço Lu Ribeiro`} loading="lazy" width="675" height="900" />
             <h3>{s.nome}</h3>
             <p>{s.desc}</p>
           </div>
@@ -81,7 +81,7 @@ const servicos = [
     <div class="container faixa__inner">
       <div>
         <span class="eyebrow">Nosso diferencial</span>
-        <h2 class="text-creme">Terapia capilar: a raiz da beleza</h2>
+        <h2>Terapia capilar: a raiz da beleza</h2>
         <p class="faixa__texto">
           Cabelo bonito começa num couro cabeludo saudável. Antes de qualquer
           tratamento, a gente entende o seu — pra tratar a causa, não só o
@@ -90,7 +90,7 @@ const servicos = [
         <a href="/servicos" class="btn btn-primario">Entender a terapia capilar</a>
       </div>
       <div class="faixa__numeros">
-        <div><strong>+8</strong><span>anos cuidando de cachos</span></div>
+        <div><strong>+15</strong><span>anos cuidando de cachos</span></div>
         <div><strong>100%</strong><span>foco em cabelo cacheado</span></div>
         <div><strong>1:1</strong><span>atendimento com hora marcada</span></div>
       </div>
@@ -124,6 +124,30 @@ const servicos = [
     </section>
   )}
 
+  <!-- POR DENTRO DO ESPAÇO (vídeos) -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="center" style="margin-bottom: 2.5rem;">
+        <span class="eyebrow">Por dentro do Espaço</span>
+        <h2>Um atendimento sem pressa, feito pra você</h2>
+      </div>
+      <div class="videos">
+        <figure class="video video--principal">
+          <video src="/videos/atendimento.mp4" poster="/videos/atendimento.jpg" controls playsinline preload="none" width="720" height="1280"></video>
+          <figcaption>Um dia de atendimento no Espaço Lu Ribeiro</figcaption>
+        </figure>
+        <figure class="video">
+          <video src="/videos/head-spa.mp4" poster="/videos/head-spa.jpg" autoplay muted loop playsinline preload="metadata"></video>
+          <figcaption>Head Spa: cuidado e relaxamento</figcaption>
+        </figure>
+        <figure class="video">
+          <video src="/videos/iluminado.mp4" poster="/videos/iluminado.jpg" autoplay muted loop playsinline preload="metadata"></video>
+          <figcaption>Iluminado que preserva o cacho</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
   <!-- INSTAGRAM -->
   <section class="section" style="padding-top: 0;">
     <div class="container">
@@ -137,9 +161,9 @@ const servicos = [
         </a>
       </div>
       <div class="ig-grid">
-        {['espaco', 'lu-video', 'atendimento', 'crescihair', 'atendimento2'].map((f) => (
+        {Array.from({ length: 15 }, (_, i) => `dia/${i + 1}`).map((f) => (
           <a href={CONTATO.instagram} target="_blank" rel="noopener" class="ig-item" aria-label="Ver no Instagram">
-            <img src={`/fotos/${f}.jpg`} alt="Publicação do Instagram do Espaço Lu Ribeiro" loading="lazy" />
+            <img src={`/fotos/${f}.jpg`} alt="Cachos finalizados no Espaço Lu Ribeiro" loading="lazy" />
           </a>
         ))}
       </div>
@@ -180,11 +204,11 @@ const servicos = [
     width: 100%;
     max-width: 380px;
     aspect-ratio: 361 / 640;
-    border-radius: 26px;
+    border-radius: 200px 200px 6px 6px;
     overflow: hidden;
-    border: 6px solid #fff;
+    border: 1px solid var(--primaria);
+    outline: 8px solid var(--branco);
     box-shadow: var(--sombra);
-    rotate: 1.5deg;
   }
   .hero__foto img { width: 100%; height: 100%; object-fit: cover; }
   .hero__card {
@@ -204,23 +228,31 @@ const servicos = [
   .hero__card small { color: var(--primaria-escura); font-weight: 700; }
 
   /* Serviços */
-  .servico { padding: 1.8rem; text-align: center; }
-  .servico__icone { font-size: 2.2rem; display: block; margin-bottom: 0.6rem; }
+  .servico { padding: 0 0 1.6rem; text-align: center; }
+  .servico h3, .servico p { padding-inline: 1.4rem; }
+  .servico__foto { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 35%; margin-bottom: 1.2rem; }
   .servico p { color: var(--tinta-suave); font-size: 1rem; margin: 0; }
 
   /* Faixa terapia */
-  .faixa { background: var(--cafe); color: var(--creme); padding-block: clamp(3rem, 7vw, 5rem); }
+  .faixa {
+    background: radial-gradient(900px 420px at 15% 0%, var(--branco), transparent), var(--creme-2);
+    border-block: 1px solid var(--borda);
+    padding-block: clamp(3rem, 7vw, 5rem);
+  }
   .faixa__inner { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; align-items: center; }
-  .faixa__texto { color: #e8dccb; font-size: 1.1rem; margin-bottom: 1.6rem; }
+  .faixa__texto { color: var(--tinta-suave); font-size: 1.1rem; margin-bottom: 1.6rem; }
   .faixa__numeros { display: grid; gap: 1.2rem; }
   .faixa__numeros div {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.12);
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    box-shadow: var(--sombra-sm);
     border-radius: var(--raio);
     padding: 1.2rem 1.4rem;
   }
-  .faixa__numeros strong { font-family: var(--serif); font-size: 2rem; color: var(--caramelo); display: block; }
-  .faixa__numeros span { color: #e8dccb; font-size: 0.95rem; }
+  .faixa__numeros strong { font-family: var(--serif); font-size: 2.2rem; color: var(--primaria); display: block; }
+  .faixa__numeros span { color: var(--tinta-suave); font-size: 0.95rem; }
+
+  .grid-4 { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
 
   /* Blog topo */
   .secao-topo { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; margin-bottom: 2.2rem; flex-wrap: wrap; }
@@ -228,7 +260,7 @@ const servicos = [
   /* Instagram */
   .ig-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.8rem; }
   .ig-item {
-    aspect-ratio: 9 / 16;
+    aspect-ratio: 3 / 4;
     border-radius: var(--raio-sm);
     overflow: hidden;
     box-shadow: var(--sombra-sm);
@@ -237,18 +269,34 @@ const servicos = [
   .ig-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease; }
   .ig-item:hover img { transform: scale(1.06); }
   @media (max-width: 720px) {
-    .ig-grid { grid-template-columns: repeat(2, 1fr); }
+    .ig-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* Vídeos */
+  .videos { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 1.2rem; align-items: start; max-width: 900px; margin-inline: auto; }
+  .video { margin: 0; }
+  .video video {
+    width: 100%; aspect-ratio: 9 / 16; object-fit: cover; display: block;
+    background: var(--creme-2);
+    border-radius: 4px;
+    border: 1px solid var(--borda);
+    box-shadow: var(--sombra-sm);
+  }
+  .video figcaption { font-size: 0.85rem; color: var(--tinta-suave); text-align: center; margin-top: 0.6rem; }
+  @media (max-width: 720px) {
+    .videos { grid-template-columns: 1fr 1fr; }
+    .video--principal { grid-column: 1 / -1; }
   }
 
   /* CTA final */
   .cta-final {
-    background: linear-gradient(135deg, var(--terracota), var(--terracota-escuro));
-    border-radius: 28px;
+    background: var(--ouro);
+    border-radius: 4px;
     padding: clamp(2.5rem, 6vw, 4rem);
     text-align: center;
     margin-block: 1rem 3rem;
   }
-  .cta-final p { color: #fbe9dc; font-size: 1.15rem; margin-bottom: 1.6rem; }
+  .cta-final p { color: #fff8ec; font-size: 1.15rem; margin-bottom: 1.6rem; }
   .cta-final .btn-primario { background: #fff; color: var(--terracota-escuro); }
   .cta-final .btn-primario:hover { background: var(--creme); }
 

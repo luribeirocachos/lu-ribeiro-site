@@ -8,9 +8,10 @@
 
 :root {
   /* Paleta da marca Lu Ribeiro — dourado antigo, carvão, creme (extraída do logo) */
-  --creme: #f8f4ec;
-  --creme-2: #f1e9db;
-  --areia: #e7dcc7;
+  /* PALETA_LUXO_V1 (02/10/2026) — a Lu pediu off-white + dourado, clima de luxo */
+  --creme: #fbf9f4;            /* off-white (fundo) */
+  --creme-2: #f4eee2;          /* champanhe claro */
+  --areia: #ece2cd;            /* champanhe */
   --terracota: #b58951;        /* dourado da marca (accent primário) */
   --terracota-escuro: #997138; /* dourado profundo */
   --caramelo: #c9a66e;         /* dourado claro */
@@ -18,7 +19,7 @@
   --salvia: #ab834f;           /* camel da marca */
   --salvia-clara: #c9a66e;
   --cafe: #2a2a2b;             /* carvão da marca (fundos escuros) */
-  --cafe-suave: #6b6459;       /* cinza quente (texto secundário) */
+  --cafe-suave: #6f6556;       /* cinza quente (texto secundário) */
   --branco: #ffffff;
 
   /* Papéis */
@@ -28,7 +29,8 @@
   --tinta-suave: var(--cafe-suave);
   --primaria: var(--terracota);
   --primaria-escura: var(--terracota-escuro);
-  --borda: #e6dcc9;
+  --borda: #e6d8bd;            /* filete dourado suave */
+  --ouro: linear-gradient(135deg, #d7b77c 0%, #b58951 48%, #8f6a36 100%);
 
   /* Tipografia */
   --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
@@ -39,8 +41,8 @@
   --largura-texto: 720px;
   --raio: 8px;
   --raio-sm: 4px;
-  --sombra: 0 18px 50px -22px rgba(42, 42, 43, 0.4);
-  --sombra-sm: 0 8px 24px -14px rgba(42, 42, 43, 0.42);
+  --sombra: 0 22px 50px -26px rgba(120, 90, 40, 0.38);
+  --sombra-sm: 0 10px 26px -18px rgba(120, 90, 40, 0.4);
 }
 
 * {
@@ -136,16 +138,17 @@ img { max-width: 100%; height: auto; display: block; }
 .btn:hover { transform: translateY(-2px); }
 
 .btn-primario {
-  background: var(--primaria);
+  background: var(--ouro);
   color: #fff;
   box-shadow: var(--sombra-sm);
+  text-shadow: 0 1px 1px rgba(90, 60, 20, 0.25);
 }
 .btn-primario:hover { background: var(--primaria-escura); color: #fff; }
 
 .btn-contorno {
   background: transparent;
-  color: var(--tinta);
-  border-color: var(--tinta);
+  color: var(--primaria-escura);
+  border-color: var(--primaria);
 }
 .btn-contorno:hover { border-color: var(--primaria); background: var(--primaria); color: #fff; }
 

@@ -49,9 +49,10 @@ const ativo = (href: string) =>
     position: sticky;
     top: 0;
     z-index: 50;
-    background: color-mix(in srgb, var(--creme) 88%, transparent);
+    background: color-mix(in srgb, var(--creme) 92%, transparent);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--borda);
+    box-shadow: 0 1px 0 rgba(181, 137, 81, 0.12);
   }
   .cabecalho__inner {
     display: flex;
@@ -78,6 +79,7 @@ const ativo = (href: string) =>
     letter-spacing: 0.14em;
     position: relative;
     padding-block: 0.4rem;
+    white-space: nowrap;
   }
   .nav__link:hover { color: var(--primaria-escura); }
   .nav__link--ativo { color: var(--tinta); }
@@ -123,6 +125,15 @@ const ativo = (href: string) =>
   }
   .nav-mobile .btn { margin-top: 0.8rem; justify-content: center; }
 
+  @media (max-width: 1180px) {
+    .nav { gap: 1.1rem; }
+    .nav__link { letter-spacing: 0.1em; }
+  }
+  @media (max-width: 1000px) {
+    .nav, .cabecalho__cta { display: none; }
+    .menu-toggle { display: flex; }
+    .nav-mobile.aberto { display: flex; }
+  }
   @media (max-width: 860px) {
     .nav, .cabecalho__cta { display: none; }
     .menu-toggle { display: flex; }
