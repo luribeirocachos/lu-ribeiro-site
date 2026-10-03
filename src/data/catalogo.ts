@@ -86,6 +86,7 @@ export const CATEGORIAS: Categoria[] = [
       {
         nome: 'Consultoria',
         painel: 'Consultoria',
+        foto: '/fotos/catalogo/consultoria.jpg',
         reserva: 50,
         desc: 'Análise detalhada dos cachos com indicação de produtos e um plano de cuidados para casa.',
       },
@@ -211,6 +212,7 @@ export const CATEGORIAS: Categoria[] = [
       {
         nome: 'Debutante',
         painel: 'debutante',
+        foto: '/fotos/catalogo/debutante.jpg',
         modo: 'consulta',
         desc: 'Penteado e maquiagem no dia do evento.',
       },
@@ -224,6 +226,7 @@ export const CATEGORIAS: Categoria[] = [
       {
         nome: 'Maquiagem',
         painel: 'maquiagem',
+        foto: '/fotos/catalogo/maquiagem.jpg',
         reserva: 180,
       },
       {
