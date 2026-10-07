@@ -1,0 +1,181 @@
+---
+// LISTA DE LINKS — para a bio do Instagram @luribeirosc (estilo "link list": foto, nome e botões em coluna).
+// Standalone, sem menu. Identidade da MENTORA, a mesma de /lu. Produtos/preços vêm de src/data/mentora.ts,
+// então mudar um preço lá muda aqui e no site.
+import { WHATSAPP, CONTATO } from '../consts';
+import { PRODUTOS, comOrigem } from '../data/mentora';
+import { fioDoCacho } from '../data/coil';
+
+const titulo = 'Lu Ribeiro — links';
+const descricao =
+  'Imersão Cachos na Prática, Escola dos Cachos, e-book, mini curso, salão e YouTube da Lu Ribeiro.';
+const URL_SITE = 'https://www.luribeirocachos.com.br/links';
+const OG = 'https://www.luribeirocachos.com.br/mentora/og.jpg';
+
+const zap = (msg: string) => `https://wa.me/${WHATSAPP.numero}?text=${encodeURIComponent(msg)}`;
+// Mensagem própria desta página: a Lu sabe que a conversa veio do link do Instagram.
+const zapSalao = zap('Oi! Vim pelo link do Instagram da Lu Ribeiro e quero agendar um horário no Espaço Lu Ribeiro 💛');
+
+// A Hotmart mostra de onde veio cada venda quando o link leva ?src=… (não muda preço nem oferta).
+const ORIGEM = 'links';
+
+// ===== YouTube: o vídeo que já estava na bio do Instagram + o canal =====
+const YT_VIDEO = 'https://youtu.be/EQ9cCzj-ChM';
+const YT_CANAL = 'https://www.youtube.com/@luribeirooficial';
+
+type Item = { titulo: string; sub: string; href: string; chip?: string };
+
+const aprenda: Item[] = [
+  { titulo: PRODUTOS.escola.nome, sub: 'Formação online completa para cabeleireiras', href: comOrigem(PRODUTOS.escola.link, ORIGEM), chip: PRODUTOS.escola.preco },
+  { titulo: PRODUTOS.ebook.nome, sub: 'E-book para cuidar melhor dos seus cachos', href: comOrigem(PRODUTOS.ebook.link, ORIGEM), chip: PRODUTOS.ebook.preco },
+  { titulo: PRODUTOS.mini.nome, sub: 'Mini curso de tratamento e finalização', href: comOrigem(PRODUTOS.mini.link, ORIGEM), chip: PRODUTOS.mini.preco },
+];
+const conheca: Item[] = [
+  { titulo: 'Meu site', sub: 'Imersão, Escola, e-book e mini curso num lugar só', href: '/lu' },
+  { titulo: 'Agendar no Espaço Lu Ribeiro', sub: 'Chame no WhatsApp', href: zapSalao },
+  { titulo: 'Perfil do salão', sub: CONTATO.instagramHandle, href: CONTATO.instagram },
+];
+const youtube: Item[] = [
+  { titulo: 'PODCACHOS — Minha História', sub: 'Podcast · 23 min', href: YT_VIDEO },
+  { titulo: 'Canal Lu Ribeiro Oficial', sub: 'Podcachos, propósito e bastidores', href: YT_CANAL },
+];
+const grupos = [
+  { id: 'aprenda', rotulo: 'Aprenda comigo', itens: aprenda },
+  { id: 'conheca', rotulo: 'Conheça', itens: conheca },
+  { id: 'youtube', rotulo: 'No YouTube', itens: youtube },
+];
+const externo = (h: string) => /^https?:/.test(h);
+
+const { d: coil, w: coilW, h: coilH } = fioDoCacho();
+---
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F5ECE0">
+<title>{titulo}</title>
+<meta name="description" content={descricao}>
+<link rel="canonical" href={URL_SITE}>
+<meta property="og:type" content="website">
+<meta property="og:title" content={titulo}>
+<meta property="og:description" content={descricao}>
+<meta property="og:image" content={OG}>
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content={URL_SITE}>
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500;1,600&family=Montserrat:wght@400;500;600;700&display=swap">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs><path id="coil-p" d={coil} fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" /></defs>
+</svg>
+
+<main class="lista">
+
+  <header class="perfil">
+    <img class="avatar" src="/mentora/avatar-240.jpg" width="240" height="240" alt="Lu Ribeiro" fetchpriority="high">
+    <h1>Lu Ribeiro</h1>
+    <p class="papel">Terapia capilar integrativa</p>
+    <p class="frase">Há propósito no que você faz.</p>
+    <svg class="coil" viewBox={`0 0 ${coilW} ${coilH}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#coil-p" /></svg>
+  </header>
+
+  <!-- DESTAQUE: a imersão (tem data e só 10 vagas) -->
+  <a class="destaque" href="/cachos-na-pratica">
+    <span class="d-selo">Imersão presencial · 10 vagas</span>
+    <span class="d-titulo">Cachos na Prática</span>
+    <span class="d-sub">25 e 26 de outubro · Piracicaba</span>
+    <span class="d-botao">Ver e garantir minha vaga</span>
+  </a>
+
+  {grupos.map((g) => (
+    <section class="grupo" aria-labelledby={`g-${g.id}`}>
+      <h2 id={`g-${g.id}`} class="g-titulo">{g.rotulo}</h2>
+      <ul>
+        {g.itens.map((i) => (
+          <li>
+            <a class="item" href={i.href} target={externo(i.href) ? '_blank' : undefined} rel={externo(i.href) ? 'noopener' : undefined}>
+              <span class="i-txt">
+                <span class="i-t">{i.titulo}</span>
+                <span class="i-s">{i.sub}</span>
+              </span>
+              {i.chip ? <span class="chip">{i.chip}</span> : null}
+              <span class="seta" aria-hidden="true">›</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+
+  <footer class="pe">
+    <p>© 2026 Lu Ribeiro · Piracicaba, SP</p>
+  </footer>
+
+</main>
+
+<style is:global>
+:root{
+  --creme:#F5ECE0; --creme-claro:#FBF5EC; --areia:#EADBC6; --linha:#DCC9AE;
+  --tinta:#1F1510; --suave:#6B5B4F;
+  --bronze:#A06A2C; --bronze-texto:#85541F; --caramelo:#C69E76;
+  --cafe:#2A1D15; --ouro-no-cafe:#DDBB86; --botao-ouro:#D9B070; --ouro-veu:#EFE0C8;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--tinta);font-family:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;background:var(--creme) radial-gradient(120% 55% at 50% 0%, #FAF2E6 0%, var(--creme) 62%) no-repeat}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--bronze);outline-offset:3px}
+ul{list-style:none;margin:0;padding:0}
+
+.lista{max-width:480px;margin:0 auto;padding:36px 20px 44px}
+
+/* ---- perfil ---- */
+.perfil{text-align:center}
+.avatar{width:104px;height:104px;margin:0 auto 16px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 3px var(--creme),0 0 0 5px var(--caramelo)}
+.perfil h1{margin:0;font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:40px;line-height:1;letter-spacing:-.01em}
+.papel{margin:10px 0 0;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze-texto)}
+.frase{margin:12px 0 0;font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-weight:500;font-size:21px;line-height:1.25}
+.coil{display:block;width:100%;height:23px;margin-top:18px;color:var(--bronze);opacity:.55}
+.perfil{padding-top:6px} /* folga para o anel da foto não ser cortado */
+
+/* ---- destaque (imersão) ---- */
+.destaque{display:block;margin:20px 0 6px;padding:24px 22px 22px;text-align:center;text-decoration:none;color:#EADCC8;
+  background:var(--cafe);border-radius:18px;box-shadow:0 14px 34px rgba(42,29,21,.22);transition:transform .12s,box-shadow .15s}
+.destaque:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(42,29,21,.28)}
+.d-selo{display:inline-block;padding:5px 12px;border-radius:999px;background:var(--ouro-no-cafe);color:var(--cafe);
+  font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.d-titulo{display:block;margin-top:14px;font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:42px;line-height:.98;color:#FBF3E6;letter-spacing:-.01em}
+.d-sub{display:block;margin-top:8px;font-size:13px;font-weight:500;letter-spacing:.05em;color:var(--ouro-no-cafe)}
+.d-botao{display:block;margin-top:18px;padding:14px 16px;border-radius:10px;background:var(--botao-ouro);color:var(--tinta);font-size:15px;font-weight:700}
+
+/* ---- grupos de links ---- */
+.g-titulo{margin:28px 0 10px;font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze-texto)}
+.item{display:flex;align-items:center;gap:12px;margin-bottom:10px;padding:15px 16px;text-decoration:none;
+  background:var(--creme-claro);border:1px solid var(--linha);border-radius:14px;transition:border-color .15s,transform .1s,box-shadow .15s}
+.item:hover{border-color:var(--bronze);box-shadow:0 6px 18px rgba(42,29,21,.09);transform:translateY(-1px)}
+.item:active{transform:translateY(0)}
+.i-txt{flex:1;min-width:0}
+.i-t{display:block;font-weight:600;font-size:15px;line-height:1.3}
+.i-s{display:block;margin-top:2px;font-size:12.5px;line-height:1.4;color:var(--suave)}
+.chip{flex:none;white-space:nowrap;padding:5px 10px;border-radius:999px;background:var(--ouro-veu);color:var(--bronze-texto);font-size:12.5px;font-weight:700}
+.seta{flex:none;color:var(--bronze);font-size:22px;line-height:1}
+
+.pe{margin-top:30px;text-align:center;font-size:12.5px;color:var(--suave)}
+.pe p{margin:0}
+
+@media(max-width:360px){.d-titulo{font-size:36px}.perfil h1{font-size:36px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</body>
+</html>

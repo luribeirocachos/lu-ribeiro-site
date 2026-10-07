@@ -4,6 +4,8 @@
 // Identidade da MENTORA (creme, bronze, quase-preto quente — tirada das artes da imersão),
 // não a do salão. Standalone de propósito: não usa o Base.astro, não tem menu do salão.
 import { WHATSAPP, CONTATO } from '../consts';
+import { PRODUTOS } from '../data/mentora';
+import { fioDoCacho } from '../data/coil';
 
 const titulo = 'Lu Ribeiro — mentora de cachos';
 const descricao =
@@ -17,34 +19,12 @@ const zap = (msg: string) => `https://wa.me/${WHATSAPP.numero}?text=${encodeURIC
 const zapVaga = zap('Oi Lu! Vim pelo seu site e quero garantir minha vaga na Imersão Cachos na Prática (25 e 26/10) 💛');
 const zapSalao = zap('Oi! Vim pelo site da Lu Ribeiro e quero agendar um horário no Espaço Lu Ribeiro 💛');
 
-// ===== Produtos — tudo que muda (link ou preço) fica AQUI, num lugar só =====
-// Só entra link que foi conferido no ar. Link vazio = o botão cai no WhatsApp.
-const PRODUTOS = {
-  // Link direto da OFERTA de R$ 97 (conferido: o pagamento abre em R$ 97,00). O go.hotmart.com/E51115612G
-  // leva à vitrine, que ainda mostra o preço antigo (R$ 3.997,90).
-  escola: { link: 'https://pay.hotmart.com/E51115612G?off=hiwd90nu', preco: 'R$ 97' },
-  // Link direto da OFERTA de R$ 9,90 (conferido: o pagamento abre em R$ 9,90). A vitrine ainda mostra R$ 29,90.
-  ebook: { link: 'https://pay.hotmart.com/K82077969T?off=8g7d5soj', preco: 'R$ 9,90' },
-  // Nome na Hotmart: "Start dos Cachos - Tratamento & Finalização" (com T). ATENÇÃO: este link cobra R$ 29,90;
-  // a Lu tinha dito R$ 47 — mostramos o que o pagamento realmente cobra até ela confirmar.
-  mini: { link: 'https://pay.hotmart.com/U59040980D?off=0gl6g72r', preco: 'R$ 29,90' },
-};
+// Produtos (links de pagamento e preços): fonte única em src/data/mentora.ts, compartilhada com /links.
 
 const horarios = CONTATO.horarios.filter((h) => !/fechado/i.test(h.horas));
 
-// ===== O fio do cacho =====
-// Linha em laços (uma trocoide: x = a·t − r·sen t, y = r − r·cos t, com r > a) usada como
-// divisor. Gerada aqui, uma vez, e reaproveitada com <use> — nada de caminho escrito à mão.
-const A = 6, R = 10, LACOS = 70, PASSOS = 22;
-let coil = '';
-for (let i = 0; i <= LACOS * PASSOS; i++) {
-  const t = (i / (LACOS * PASSOS)) * LACOS * 2 * Math.PI;
-  const x = A * t - R * Math.sin(t) + R;
-  const y = R - R * Math.cos(t) + 1;
-  coil += (i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1);
-}
-const coilW = Math.round(A * LACOS * 2 * Math.PI + 2 * R);
-const coilH = 2 * R + 2;
+// O fio do cacho (divisor em laços): gerado em src/data/coil.ts, compartilhado com /links.
+const { d: coil, w: coilW, h: coilH } = fioDoCacho();
 ---
 
 <!doctype html>
