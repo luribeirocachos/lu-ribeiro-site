@@ -191,7 +191,7 @@ export const CATEGORIAS: Categoria[] = [
       {
         nome: 'Loiro',
         soAPartir: true,
-        fotos: ['/fotos/catalogo/loiro-1.jpg', '/fotos/catalogo/loiro-2.jpg', '/fotos/catalogo/loiro-3.jpg', '/fotos/catalogo/loiro-4.jpg', '/fotos/catalogo/loiro-5.jpg'],
+        fotos: ['/fotos/catalogo/loiro-1.jpg', '/fotos/catalogo/loiro-2.jpg', '/fotos/catalogo/loiro-3.jpg', '/fotos/catalogo/loiro-4.jpg', '/fotos/catalogo/loiro-5.jpg', '/fotos/catalogo/loiro-6.jpg', '/fotos/catalogo/loiro-7.jpg'],
         desc: 'Loiro feito com avaliação de estrutura, histórico químico e resistência do fio.',
         inclui: ['Diagnóstico capilar', 'Técnica de iluminação personalizada', 'Tonalização', 'Protocolo de cuidado', 'Finalização'],
         variantes: tamanhos('Loiro', ['curto', 'medio', 'longo'], [650, 750, 950]),
