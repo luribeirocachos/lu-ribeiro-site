@@ -1,0 +1,304 @@
+---
+// Página pessoal da Lu — link da bio do @luribeirosc (perfil pessoal, foco em ENSINO).
+// Standalone de propósito: não usa o Base.astro (sem menu/rodapé do salão), porque é
+// link de bio e cada clique a mais custa conversão.
+import { WHATSAPP } from '../consts';
+
+const titulo = 'Lu Ribeiro — Cachos na Prática';
+const descricao =
+  'Imersão presencial para cabeleireiras em Piracicaba, 25 e 26 de outubro. Turma VIP de 10 vagas. E a formação online para aprender cachos do zero.';
+const imagem = '/fotos/lu-sobre.jpg';
+
+const zapImersao = `https://wa.me/${WHATSAPP.numero}?text=${encodeURIComponent(
+  'Oi Lu! Quero garantir minha vaga na Imersão Cachos na Prática (25 e 26/10) 💛'
+)}`;
+const HOTMART = 'https://go.hotmart.com/E51115612G';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{titulo}</title>
+<meta name="description" content={descricao}>
+<link rel="canonical" href="https://www.luribeirocachos.com.br/lu">
+
+<!-- compartilhamento (Instagram, WhatsApp, Facebook) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content={titulo}>
+<meta property="og:description" content={descricao}>
+<meta property="og:image" content={`https://www.luribeirocachos.com.br${imagem}`}>
+<meta property="og:url" content="https://www.luribeirocachos.com.br/lu">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap">
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="capa">
+    <img src={imagem} alt="Lu Ribeiro" width="733" height="1100" fetchpriority="high">
+    <div class="nome">
+      <div class="fio"></div>
+      <h1>Lu Ribeiro</h1>
+      <span class="papel">Cachos · Ensino · @luribeirosc</span>
+    </div>
+  </header>
+
+  <section class="cred">
+    <p class="frase">Não ensino teoria. Ensino o que eu faço todo dia.</p>
+    <p>São <b>mais de 15 anos</b> atendendo cacheadas em Piracicaba, no meu próprio espaço. O que eu
+    levo para a imersão é o que funciona na cadeira — com cliente real, agenda real e as dúvidas que
+    aparecem de verdade.</p>
+  </section>
+
+  <section class="imersao">
+    <span class="selo">◆ Turma VIP · 10 vagas</span>
+    <h2>Cachos na Prática</h2>
+    <p class="sub">Imersão presencial — 2 dias de conteúdo, prática e aplicação real</p>
+
+    <p class="chamada">Da avaliação ao tratamento na prática, <i>com modelos reais.</i></p>
+    <p class="porque">Em 2 dias você vai aprender a atender cabelos <b>ondulados, cacheados e
+    crespos</b> com mais segurança, técnica e resultado.</p>
+
+    <div class="dias">
+      <div class="dia">
+        <div class="dia-top"><span class="num">1</span>
+          <span class="dia-ttl">Diagnóstico e tratamento<small>na prática</small></span></div>
+        <ul>
+          <li>Comportamento dos fios ondulados, cacheados e crespos</li>
+          <li>Tratamento de <b>scab hair</b>, porosidade e hidrofobia</li>
+          <li>Protocolos personalizados para a real necessidade do fio</li>
+          <li>Escolha estratégica de produtos e ativos</li>
+          <li>Aplicação real em modelos, com acompanhamento individual</li>
+        </ul>
+      </div>
+      <div class="dia">
+        <div class="dia-top"><span class="num">2</span>
+          <span class="dia-ttl">Finalização, resultado<small>e estratégia</small></span></div>
+        <ul>
+          <li>Técnicas de finalização para diferentes curvaturas</li>
+          <li>Produtos, ferramentas e aplicação conforme o resultado</li>
+          <li>Construção de um atendimento completo e eficiente</li>
+          <li>Protocolos que geram resultado real nas suas clientes</li>
+          <li>Como <b>valorizar e precificar</b> seus serviços de cachos</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="recebe">
+      <div class="recebe-ttl">Você também recebe</div>
+      <div class="recebe-itens">
+        <span>Apostila com todo o conteúdo</span>
+        <span>Certificado de participação</span>
+        <span>Grupo de acompanhamento no WhatsApp</span>
+        <span>Prática em modelos reais durante todo o curso</span>
+      </div>
+    </div>
+
+    <div class="grade">
+      <div class="cel">
+        <div class="r">Quando</div>
+        <div class="v">25 e 26/10<small>domingo e segunda, 9h às 17h</small></div>
+      </div>
+      <div class="cel">
+        <div class="r">Onde</div>
+        <div class="v">Espaço Lu Ribeiro<small>Piracicaba — SP</small></div>
+      </div>
+      <div class="cel">
+        <div class="r">Investimento</div>
+        <div class="v">R$ 500 à vista<small>ou 5x de R$ 110</small></div>
+      </div>
+      <div class="cel">
+        <div class="r">Turma VIP</div>
+        <div class="v vagas"><span class="n">10</span><span>vagas apenas,<br>para caber a prática</span></div>
+      </div>
+    </div>
+
+    <p class="porque fecha">A imersão cai no <b>domingo e na segunda</b> de propósito: são os dias em
+    que salão fecha. Você vem aprender <b>sem fechar o seu</b>.</p>
+
+    <a class="cta" href={zapImersao} target="_blank" rel="noopener">Quero minha vaga ›</a>
+    <p class="sobcta">Você fala direto comigo no WhatsApp</p>
+  </section>
+
+  <section class="metodo">
+    <span class="eyebrow">Formação online</span>
+    <h2>Método Lu Ribeiro</h2>
+    <p class="linha">Para quem quer aprender do zero — mesmo que nunca tenha pegado numa tesoura —
+    ou se tornar referência em cachos na sua região.</p>
+    <ul class="modulos">
+      <li>Cortes</li><li>Finalizações</li><li>Transição capilar</li>
+      <li>Tratamentos</li><li>Colorimetria</li><li>Gestão e abertura de salão</li>
+      <li>Marketing para salão</li>
+    </ul>
+    <p class="linha extra">Com <b>mentoria em grupo ao vivo</b> e <b>comunidade</b>, para você não
+    ficar sozinha depois que o curso acaba. No seu ritmo, de onde você estiver.</p>
+    <div class="preco-linha">
+      <span class="preco">R$ 97</span>
+      <span class="preco-nota">acesso à formação completa</span>
+    </div>
+    <a class="cta2" href={HOTMART} target="_blank" rel="noopener">Começar agora ›</a>
+  </section>
+
+  <div class="secao">Também por aqui</div>
+  <nav class="lista">
+    <a class="rota" href="https://instagram.com/luribeirocachos" target="_blank" rel="noopener">
+      <span class="marca">◉</span>
+      <span class="txt"><span class="ttl">@luribeirocachos</span>
+        <span class="sub">Meu trabalho no dia a dia do salão</span></span>
+      <span class="seta">›</span>
+    </a>
+    <a class="rota" href="/">
+      <span class="marca">✦</span>
+      <span class="txt"><span class="ttl">Agendar no Espaço Lu Ribeiro</span>
+        <span class="sub">Para quem quer ser atendida por nós em Piracicaba</span></span>
+      <span class="seta">›</span>
+    </a>
+  </nav>
+
+  <footer class="pe">
+    <div class="val">Espaço Lu Ribeiro — Rua do Rosário, 842, Centro, Piracicaba/SP</div>
+    <div class="assina">Ondas · Cachos · Crespos</div>
+  </footer>
+
+</div>
+
+<style is:global>
+:root{
+  --ground:#F7F4EF; --surface:#FFFFFF; --veu:#EFE8DD;
+  --tinta:#2A2A2B; --suave:#6B655E; --fraco:#9A9188;
+  --ouro:#B58951; --ouro-claro:#D8BC8E; --ouro-veu:#F3E8D6;
+  --linha:#E3DACC; --carvao:#2A2A2B;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--ground); color:var(--tinta);
+  font-family:"Montserrat",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65; font-weight:400; -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%}
+.wrap{max-width:540px; margin:0 auto; padding:0 0 48px; background:var(--ground)}
+
+.capa{position:relative; overflow:hidden; background:var(--veu)}
+.capa img{display:block; width:100%; height:auto; object-position:center 18%}
+.capa::after{content:""; position:absolute; inset:0;
+  background:linear-gradient(to bottom, transparent 34%, rgba(20,18,16,.08) 52%, rgba(20,18,16,.58) 80%, rgba(20,18,16,.85) 100%)}
+.nome{position:absolute; left:0; right:0; bottom:0; z-index:2; padding:0 26px 22px}
+.nome .fio{width:46px; height:1px; background:var(--ouro-claro); margin-bottom:13px}
+.nome h1{font-family:"Cormorant Garamond",Georgia,serif; font-weight:600;
+  font-size:clamp(38px,11vw,54px); line-height:.96; margin:0; color:#FBF8F3; letter-spacing:-.015em}
+.nome .papel{display:block; margin-top:9px; font-size:11px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--ouro-claro); font-weight:500}
+
+.cred{padding:26px 26px 24px; border-bottom:1px solid var(--linha)}
+.cred p{margin:0; font-size:16px; color:var(--suave); font-weight:300; line-height:1.72}
+.cred b{color:var(--tinta); font-weight:600}
+.cred .frase{font-family:"Cormorant Garamond",Georgia,serif; font-size:21px; font-style:italic;
+  color:var(--tinta); line-height:1.4; margin:0 0 12px; font-weight:400}
+
+.imersao{background:var(--carvao); color:#F2EDE4; padding:30px 26px 26px}
+.imersao .selo{display:inline-flex; align-items:center; gap:7px; font-size:10.5px; letter-spacing:.17em;
+  text-transform:uppercase; font-weight:600; color:#1B1A18; background:var(--ouro-claro);
+  padding:5px 11px; border-radius:2px; margin-bottom:16px}
+.imersao h2{font-family:"Cormorant Garamond",Georgia,serif; font-weight:700;
+  font-size:clamp(31px,8.6vw,40px); line-height:1.04; margin:0 0 6px; color:#FBF8F3; letter-spacing:-.01em}
+.imersao .sub{font-size:13.5px; color:var(--ouro-claro); font-weight:400; margin:0 0 18px}
+.chamada{font-family:"Cormorant Garamond",Georgia,serif; font-size:clamp(21px,5.8vw,25px);
+  line-height:1.3; color:#FBF8F3; margin:0 0 12px; font-weight:400}
+.chamada i{color:var(--ouro-claro)}
+.porque{font-size:13.5px; color:#BDB2A3; font-weight:300; line-height:1.65; margin:0 0 20px}
+.porque b{color:#F2EDE4; font-weight:500}
+.porque.fecha{border-left:2px solid var(--ouro); padding-left:13px; margin:18px 0 20px}
+
+.dias{display:flex; flex-direction:column; gap:14px; margin:20px 0}
+.dia{border:1px solid rgba(216,188,142,.22); padding:16px 16px 14px; background:rgba(216,188,142,.045)}
+.dia-top{display:flex; align-items:center; gap:11px; margin-bottom:12px;
+  padding-bottom:11px; border-bottom:1px solid rgba(216,188,142,.18)}
+.dia-top .num{flex:none; width:29px; height:29px; border-radius:50%; background:var(--ouro);
+  color:#1B1A18; font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center}
+.dia-ttl{font-size:14px; font-weight:600; color:#FBF8F3; line-height:1.25}
+.dia-ttl small{display:block; font-size:12px; font-weight:300; color:var(--ouro-claro); margin-top:1px}
+.dia ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
+.dia li{font-size:13px; color:#C4B9AA; font-weight:300; line-height:1.5; padding-left:16px; position:relative}
+.dia li::before{content:"—"; position:absolute; left:0; color:var(--ouro); opacity:.75}
+.dia li b{color:#F2EDE4; font-weight:500}
+
+.recebe{border-top:1px solid rgba(216,188,142,.22); padding-top:17px; margin:20px 0 4px}
+.recebe-ttl{font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--ouro-claro);
+  font-weight:600; margin-bottom:11px; text-align:center}
+.recebe-itens{display:flex; flex-wrap:wrap; gap:7px; justify-content:center}
+.recebe-itens span{font-size:12px; color:#C4B9AA; font-weight:300;
+  border:1px solid rgba(216,188,142,.3); padding:6px 12px; border-radius:999px}
+
+.grade{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(216,188,142,.22);
+  border:1px solid rgba(216,188,142,.22); margin:18px 0}
+.cel{background:var(--carvao); padding:14px 15px}
+.cel .r{font-size:9.5px; letter-spacing:.17em; text-transform:uppercase; color:var(--ouro-claro);
+  font-weight:600; margin-bottom:5px}
+.cel .v{font-size:14px; color:#F2EDE4; font-weight:500; line-height:1.4}
+.cel .v small{display:block; font-size:12px; color:#A99E90; font-weight:300; margin-top:2px}
+.vagas{display:flex; align-items:baseline; gap:9px}
+.vagas .n{font-family:"Cormorant Garamond",Georgia,serif; font-size:34px; font-weight:700;
+  color:var(--ouro-claro); line-height:1}
+
+.cta{display:flex; align-items:center; justify-content:center; gap:10px; width:100%;
+  background:var(--ouro); color:#1B1A18; text-decoration:none; padding:16px 20px;
+  font-size:15px; font-weight:600; border-radius:3px; transition:background .16s}
+.cta:hover,.cta:focus-visible{background:var(--ouro-claro); outline:none}
+.cta:focus-visible{box-shadow:0 0 0 3px rgba(216,188,142,.45)}
+.sobcta{text-align:center; font-size:11.5px; color:#8E8478; margin-top:11px; font-weight:300}
+
+.metodo{padding:28px 26px 26px; background:var(--surface); border-bottom:1px solid var(--linha)}
+.metodo .eyebrow{display:block; font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--ouro); font-weight:600; margin-bottom:9px}
+.metodo h2{font-family:"Cormorant Garamond",Georgia,serif; font-weight:600;
+  font-size:clamp(27px,7.4vw,34px); line-height:1.08; margin:0 0 11px; letter-spacing:-.01em}
+.metodo .linha{margin:0 0 15px; font-size:14.5px; color:var(--suave); font-weight:300; line-height:1.68}
+.metodo .linha.extra{margin:15px 0 19px}
+.metodo .linha b{color:var(--tinta); font-weight:500}
+.modulos{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:7px}
+.modulos li{font-size:12.5px; color:var(--suave); background:var(--ouro-veu);
+  border:1px solid var(--linha); padding:5px 11px; border-radius:999px}
+.preco-linha{display:flex; align-items:baseline; gap:10px; margin:0 0 16px; flex-wrap:wrap}
+.preco{font-family:"Cormorant Garamond",Georgia,serif; font-size:36px; font-weight:700;
+  color:var(--ouro); line-height:1}
+.preco-nota{font-size:12.5px; color:var(--fraco); font-weight:300}
+.cta2{display:inline-flex; align-items:center; gap:8px; background:transparent; color:var(--ouro);
+  border:1px solid var(--ouro); text-decoration:none; padding:13px 22px; font-size:14px;
+  font-weight:600; border-radius:3px; transition:all .16s}
+.cta2:hover,.cta2:focus-visible{background:var(--ouro); color:#fff; outline:none}
+.cta2:focus-visible{box-shadow:0 0 0 3px rgba(181,137,81,.3)}
+
+.secao{padding:24px 26px 10px; font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--ouro); font-weight:600}
+.lista{padding:0}
+.rota{display:flex; align-items:center; gap:15px; padding:18px 26px;
+  border-bottom:1px solid var(--linha); text-decoration:none; color:inherit; transition:background .16s}
+.rota:hover,.rota:focus-visible{background:var(--surface); outline:none}
+.rota:focus-visible{box-shadow:inset 3px 0 0 var(--ouro)}
+.rota .marca{flex:none; width:36px; height:36px; border-radius:50%; border:1px solid var(--ouro);
+  color:var(--ouro); display:flex; align-items:center; justify-content:center; font-size:14px;
+  background:var(--ouro-veu)}
+.rota .txt{flex:1; min-width:0}
+.rota .ttl{font-size:14.5px; font-weight:500; display:block}
+.rota .sub{font-size:12.5px; color:var(--fraco); font-weight:300; display:block; margin-top:2px}
+.rota .seta{flex:none; color:var(--ouro); font-size:17px; opacity:.5; transition:transform .16s, opacity .16s}
+.rota:hover .seta{transform:translateX(3px); opacity:1}
+
+.pe{padding:26px 26px 0}
+.pe .val{font-size:12.5px; color:var(--fraco); font-weight:300; line-height:1.6}
+.pe .assina{border-top:1px solid var(--linha); padding-top:16px; margin-top:16px;
+  font-family:"Cormorant Garamond",Georgia,serif; font-style:italic; font-size:15px; color:var(--fraco)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</body>
+</html>
