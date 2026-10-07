@@ -19,14 +19,16 @@ const zapSalao = zap('Oi! Vim pelo link do Instagram da Lu Ribeiro e quero agend
 // A Hotmart mostra de onde veio cada venda quando o link leva ?src=… (não muda preço nem oferta).
 const ORIGEM = 'links';
 
-// ===== YouTube: o vídeo que já estava na bio do Instagram + o canal =====
-const YT_VIDEO = 'https://youtu.be/EQ9cCzj-ChM';
+// ===== YouTube: só o canal (a Lu pediu para tirar o vídeo do PODCACHOS) =====
 const YT_CANAL = 'https://www.youtube.com/@luribeirooficial';
 
 type Item = { titulo: string; sub: string; href: string; chip?: string };
 
+// "R$ 97" -> "R$ 97,00" (a frase da Escola mostra os centavos); sai de PRODUTOS, então muda junto com o preço
+const precoEscola = PRODUTOS.escola.preco.includes(',') ? PRODUTOS.escola.preco : PRODUTOS.escola.preco + ',00';
+
 const aprenda: Item[] = [
-  { titulo: PRODUTOS.escola.nome, sub: 'Formação online completa para cabeleireiras', href: comOrigem(PRODUTOS.escola.link, ORIGEM), chip: PRODUTOS.escola.preco },
+  { titulo: PRODUTOS.escola.nome, sub: `Curso do zero à especialista em cachos por apenas ${precoEscola}`, href: comOrigem(PRODUTOS.escola.link, ORIGEM) },
   { titulo: PRODUTOS.ebook.nome, sub: 'E-book para cuidar melhor dos seus cachos', href: comOrigem(PRODUTOS.ebook.link, ORIGEM), chip: PRODUTOS.ebook.preco },
   { titulo: PRODUTOS.mini.nome, sub: 'Mini curso de tratamento e finalização', href: comOrigem(PRODUTOS.mini.link, ORIGEM), chip: PRODUTOS.mini.preco },
 ];
@@ -36,8 +38,7 @@ const conheca: Item[] = [
   { titulo: 'Perfil do salão', sub: CONTATO.instagramHandle, href: CONTATO.instagram },
 ];
 const youtube: Item[] = [
-  { titulo: 'PODCACHOS — Minha História', sub: 'Podcast · 23 min', href: YT_VIDEO },
-  { titulo: 'Canal Lu Ribeiro Oficial', sub: 'Podcachos, propósito e bastidores', href: YT_CANAL },
+  { titulo: 'Canal Lu Ribeiro Oficial', sub: 'Propósito, estratégia e bastidores de quem empreende', href: YT_CANAL },
 ];
 const grupos = [
   { id: 'aprenda', rotulo: 'Aprenda comigo', itens: aprenda },
