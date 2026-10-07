@@ -1,0 +1,298 @@
+---
+// LANDING da Imersão Cachos na Prática — 25 e 26/10/2026.
+// Objetivo ÚNICO: inscrição pelo WhatsApp. Sem menu, sem links para fora (nem Instagram,
+// nem curso, nem agendamento) — é página de campanha, não de bio. A /lu é o hub.
+import { WHATSAPP } from '../consts';
+
+const titulo = 'Cachos na Prática — Imersão presencial com Lu Ribeiro';
+const descricao =
+  'Dois dias de prática em modelos reais, em Piracicaba. 25 e 26 de outubro, turma VIP de 10 vagas. Da avaliação ao tratamento, com protocolo, finalização e precificação.';
+const capa = '/fotos/hero-lu.jpg';
+
+// Texto diferente do da /lu de propósito: quando a mensagem chega, a Lu sabe se a pessoa veio
+// da página da campanha ("Vi a página") ou da bio ("Quero garantir"). Mesmo texto nos 3 botões.
+const zap = () =>
+  `https://wa.me/${WHATSAPP.numero}?text=${encodeURIComponent(
+    'Oi Lu! Vi a página da Imersão Cachos na Prática e quero garantir minha vaga (25 e 26/10) 💛'
+  )}`;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{titulo}</title>
+<meta name="description" content={descricao}>
+<link rel="canonical" href="https://www.luribeirocachos.com.br/cachos-na-pratica">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cachos na Prática — 25 e 26 de outubro, 10 vagas">
+<meta property="og:description" content={descricao}>
+<meta property="og:image" content={`https://www.luribeirocachos.com.br${capa}`}>
+<meta property="og:url" content="https://www.luribeirocachos.com.br/cachos-na-pratica">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap">
+</head>
+<body>
+
+<!-- ABERTURA -->
+<header class="hero">
+  <img class="hero-img" src={capa} alt="Lu Ribeiro" width="733" height="1100" fetchpriority="high">
+  <div class="hero-txt">
+    <span class="marca">Espaço Lu Ribeiro apresenta</span>
+    <h1>Cachos<br>na Prática</h1>
+    <div class="fio"></div>
+    <p class="promessa">Da avaliação ao tratamento na prática, <i>com modelos reais.</i></p>
+    <p class="quando"><span>25 e 26 de outubro</span> · <span>Piracicaba</span> · <span>10 vagas</span></p>
+    <a class="btn" href={zap()}>Quero minha vaga</a>
+    <p class="btn-nota">Inscrição direto comigo, pelo WhatsApp</p>
+  </div>
+</header>
+
+<!-- PARA QUEM -->
+<section class="bloco">
+  <span class="rotulo">Para quem é</span>
+  <h2>Você atende cachos — mas às vezes bate a dúvida.</h2>
+  <p class="texto">Se você já se perguntou por que um fio não respondeu ao tratamento, ficou insegura
+  na hora de montar o protocolo, ou não soube explicar para a cliente <b>por que aquele preço</b> —
+  esta imersão foi feita para você.</p>
+  <ul class="checks">
+    <li>Cabeleireiras que já atendem e querem <b>segurança técnica</b></li>
+    <li>Quem quer parar de <b>repetir receita</b> e começar a ler o fio</li>
+    <li>Quem atende cacheadas e <b>cobra menos do que vale</b></li>
+  </ul>
+</section>
+
+<!-- CONTEÚDO -->
+<section class="bloco escuro">
+  <span class="rotulo claro">Os dois dias</span>
+  <h2 class="claro">O que você vai aprender</h2>
+
+  <div class="dia">
+    <div class="dia-top"><span class="num">1</span>
+      <span class="dia-ttl">Diagnóstico e tratamento<small>na prática</small></span></div>
+    <ul>
+      <li>Como se comportam os fios <b>ondulados, cacheados e crespos</b></li>
+      <li>Tratamento de <b>scab hair</b>, porosidade e hidrofobia</li>
+      <li>Protocolos personalizados para a real necessidade do fio</li>
+      <li>Escolha estratégica de produtos e ativos para cada tipo</li>
+      <li><b>Aplicação real em modelos</b>, com acompanhamento individual</li>
+    </ul>
+  </div>
+
+  <div class="dia">
+    <div class="dia-top"><span class="num">2</span>
+      <span class="dia-ttl">Finalização, resultado<small>e estratégia</small></span></div>
+    <ul>
+      <li>Técnicas de finalização para <b>diferentes curvaturas</b></li>
+      <li>Produtos, ferramentas e aplicação conforme o resultado desejado</li>
+      <li>Construção de um atendimento completo e eficiente</li>
+      <li>Protocolos que geram resultado real nas suas clientes</li>
+      <li>Como <b>valorizar e precificar</b> seus serviços de cachos</li>
+    </ul>
+  </div>
+
+  <div class="leva">
+    <div class="leva-ttl">E você ainda leva</div>
+    <div class="leva-itens">
+      <span>Apostila com todo o conteúdo</span>
+      <span>Certificado de participação</span>
+      <span>Grupo de acompanhamento no WhatsApp</span>
+      <span>Prática em modelos reais o curso todo</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA MEIO -->
+<section class="cta-faixa">
+  <p class="cta-frase">São <b>10 vagas</b> — a turma é pequena para caber a prática.</p>
+  <a class="btn" href={zap()}>Garantir minha vaga</a>
+</section>
+
+<!-- QUEM ENSINA -->
+<section class="bloco quem">
+  <img class="retrato" src="/fotos/lu-sobre.jpg" alt="Lu Ribeiro" width="733" height="1100" loading="lazy">
+  <div class="quem-txt">
+    <span class="rotulo">Quem vai te ensinar</span>
+    <h2>Lu Ribeiro</h2>
+    <p class="texto">São <b>mais de 15 anos</b> atendendo cacheadas em Piracicaba, no meu próprio
+    espaço — o mesmo onde a imersão acontece.</p>
+    <p class="texto">Não ensino teoria: ensino o que eu faço todo dia, com cliente real, agenda real
+    e as dúvidas que aparecem de verdade na cadeira.</p>
+  </div>
+</section>
+
+<!-- CONDIÇÕES -->
+<section class="bloco">
+  <span class="rotulo">Como funciona</span>
+  <h2>Datas, local e investimento</h2>
+
+  <div class="grade">
+    <div class="cel">
+      <div class="r">Quando</div>
+      <div class="v">25 e 26 de outubro<small>domingo e segunda, das 9h às 17h</small></div>
+    </div>
+    <div class="cel">
+      <div class="r">Onde</div>
+      <div class="v">Espaço Lu Ribeiro<small>Rua do Rosário, 842 — Centro, Piracicaba/SP</small></div>
+    </div>
+    <div class="cel">
+      <div class="r">Investimento</div>
+      <div class="v">R$ 500 à vista<small>ou 5x de R$ 110 no cartão</small></div>
+    </div>
+    <div class="cel">
+      <div class="r">Vagas</div>
+      <div class="v"><span class="dez">10</span><small>turma VIP, com acompanhamento de perto</small></div>
+    </div>
+  </div>
+
+  <div class="destaque">
+    <p>A imersão cai no <b>domingo e na segunda</b> de propósito: são os dias em que salão fecha.
+    Você vem aprender <b>sem fechar o seu</b> e sem perder os atendimentos da semana.</p>
+  </div>
+</section>
+
+<!-- FECHAMENTO -->
+<section class="fim">
+  <p class="fim-rot">Turma de outubro</p>
+  <h2>Dois dias que mudam<br>o seu atendimento</h2>
+  <p class="fim-txt">Você sai com protocolo na mão, finalização na prática e clareza para cobrar o
+  que o seu trabalho vale.</p>
+  <a class="btn grande" href={zap()}>Quero minha vaga</a>
+  <p class="btn-nota">Me chama no WhatsApp e eu te explico tudo</p>
+</section>
+
+<footer class="rodape">
+  <p>Espaço Lu Ribeiro · Rua do Rosário, 842, Centro — Piracicaba/SP</p>
+  <p class="assina">Ondas · Cachos · Crespos</p>
+</footer>
+
+<style is:global>
+:root{
+  --ground:#F7F4EF; --surface:#FFFFFF; --veu:#EFE8DD;
+  --tinta:#2A2A2B; --suave:#6B655E; --fraco:#9A9188;
+  --ouro:#B58951; --ouro-claro:#D8BC8E; --ouro-veu:#F3E8D6;
+  --linha:#E3DACC; --carvao:#2A2A2B;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{margin:0; background:var(--ground); color:var(--tinta);
+  font-family:"Montserrat",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.68; font-weight:400; -webkit-font-smoothing:antialiased}
+img{max-width:100%; height:auto; display:block}  /* height:auto: sem isso o atributo height="1100" ganha e a foto estica */
+
+/* ---- hero ---- */
+.hero{position:relative; background:var(--carvao); overflow:hidden}
+.hero-img{width:100%; height:auto; object-position:center 15%; opacity:.5}
+.hero::after{content:""; position:absolute; inset:0;
+  background:linear-gradient(to bottom, rgba(26,24,22,.55) 0%, rgba(26,24,22,.35) 30%, rgba(26,24,22,.88) 72%, #2A2A2B 100%)}
+.hero-txt{position:absolute; inset:auto 0 0 0; z-index:2; padding:0 24px 34px; text-align:center}
+.marca{display:block; font-size:10px; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--ouro-claro); font-weight:600; margin-bottom:12px}
+.hero h1{font-family:"Cormorant Garamond",Georgia,serif; font-weight:700;
+  font-size:clamp(44px,13.5vw,72px); line-height:.94; margin:0; color:#FBF8F3; letter-spacing:-.02em}
+.fio{width:52px; height:1px; background:var(--ouro-claro); margin:17px auto}
+.promessa{font-family:"Cormorant Garamond",Georgia,serif; font-size:clamp(19px,5.2vw,23px);
+  color:#EDE5D9; margin:0 0 7px; line-height:1.35; font-weight:400}
+.promessa i{color:var(--ouro-claro)}
+.quando{font-size:12px; letter-spacing:.11em; text-transform:uppercase; color:var(--ouro-claro);
+  font-weight:600; margin:0 0 22px; line-height:1.7}
+.quando span{white-space:nowrap}  /* quebra ENTRE os itens, nunca no meio ("10" / "vagas") */
+
+/* ---- botão ---- */
+.btn{display:block; width:100%; max-width:330px; margin:0 auto; background:var(--ouro); color:#1B1A18;
+  text-decoration:none; padding:17px 22px; font-size:15.5px; font-weight:700; letter-spacing:.01em;
+  border-radius:3px; text-align:center; transition:background .16s, transform .1s;
+  box-shadow:0 2px 14px rgba(181,137,81,.28)}
+.btn:hover,.btn:focus-visible{background:var(--ouro-claro); outline:none}
+.btn:active{transform:translateY(1px)}
+.btn:focus-visible{box-shadow:0 0 0 3px rgba(216,188,142,.5)}
+.btn.grande{padding:19px 22px; font-size:16.5px}
+.btn-nota{text-align:center; font-size:11.5px; color:#8E8478; margin:11px 0 0; font-weight:300}
+
+/* ---- blocos ---- */
+.bloco{padding:42px 24px; max-width:620px; margin:0 auto; border-bottom:1px solid var(--linha)}
+.rotulo{display:block; font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--ouro); font-weight:700; margin-bottom:11px}
+.rotulo.claro{color:var(--ouro-claro)}
+.bloco h2{font-family:"Cormorant Garamond",Georgia,serif; font-weight:600;
+  font-size:clamp(26px,6.8vw,34px); line-height:1.16; margin:0 0 15px; letter-spacing:-.01em}
+.bloco h2.claro{color:#FBF8F3}
+.texto{font-size:15.5px; color:var(--suave); font-weight:300; margin:0 0 14px; line-height:1.72}
+.texto b{color:var(--tinta); font-weight:600}
+.checks{list-style:none; margin:20px 0 0; padding:0; display:flex; flex-direction:column; gap:12px}
+.checks li{font-size:14.5px; color:var(--suave); font-weight:300; padding-left:27px; position:relative; line-height:1.55}
+.checks li::before{content:"✓"; position:absolute; left:0; top:-1px; color:var(--ouro);
+  font-weight:700; font-size:15px}
+.checks b{color:var(--tinta); font-weight:600}
+
+/* ---- escuro (conteúdo) ---- */
+.bloco.escuro{background:var(--carvao); color:#E8E0D4; max-width:none; border-bottom:none}
+.bloco.escuro > *{max-width:620px; margin-left:auto; margin-right:auto}
+.dia{border:1px solid rgba(216,188,142,.2); background:rgba(216,188,142,.04);
+  padding:18px 18px 16px; margin-bottom:14px}
+.dia-top{display:flex; align-items:center; gap:12px; margin-bottom:14px; padding-bottom:12px;
+  border-bottom:1px solid rgba(216,188,142,.17)}
+.dia-top .num{flex:none; width:31px; height:31px; border-radius:50%; background:var(--ouro);
+  color:#1B1A18; font-weight:700; font-size:15px; display:flex; align-items:center; justify-content:center}
+.dia-ttl{font-size:14.5px; font-weight:600; color:#FBF8F3; line-height:1.25}
+.dia-ttl small{display:block; font-size:12px; font-weight:300; color:var(--ouro-claro); margin-top:1px}
+.dia ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px}
+.dia li{font-size:13.5px; color:#C4B9AA; font-weight:300; line-height:1.55; padding-left:17px; position:relative}
+.dia li::before{content:"—"; position:absolute; left:0; color:var(--ouro); opacity:.8}
+.dia li b{color:#F2EDE4; font-weight:600}
+.leva{border-top:1px solid rgba(216,188,142,.2); padding-top:20px; margin-top:22px}
+.leva-ttl{font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--ouro-claro);
+  font-weight:700; margin-bottom:13px; text-align:center}
+.leva-itens{display:flex; flex-wrap:wrap; gap:8px; justify-content:center}
+.leva-itens span{font-size:12.5px; color:#C4B9AA; font-weight:300;
+  border:1px solid rgba(216,188,142,.28); padding:7px 13px; border-radius:999px}
+
+/* ---- faixa de CTA ---- */
+.cta-faixa{background:var(--ouro-veu); padding:32px 24px; text-align:center; border-bottom:1px solid var(--linha)}
+.cta-frase{font-family:"Cormorant Garamond",Georgia,serif; font-size:clamp(20px,5.4vw,25px);
+  color:var(--tinta); margin:0 0 20px; line-height:1.35}
+.cta-frase b{color:var(--ouro); font-weight:700}
+
+/* ---- quem ensina ---- */
+.quem{display:flex; gap:22px; align-items:center; flex-wrap:wrap}
+.retrato{width:150px; flex:none; border-radius:2px; filter:saturate(.95)}
+.quem-txt{flex:1; min-width:240px}
+.quem-txt h2{margin-bottom:12px}
+
+/* ---- grade de condições ---- */
+.grade{display:grid; grid-template-columns:1fr; gap:1px; background:var(--linha);
+  border:1px solid var(--linha); margin:4px 0 20px}
+@media (min-width:520px){ .grade{grid-template-columns:1fr 1fr} }
+.cel{background:var(--surface); padding:16px 17px}
+.cel .r{font-size:9.5px; letter-spacing:.19em; text-transform:uppercase; color:var(--ouro);
+  font-weight:700; margin-bottom:6px}
+.cel .v{font-size:15px; color:var(--tinta); font-weight:600; line-height:1.35}
+.cel .v small{display:block; font-size:12.5px; color:var(--fraco); font-weight:300; margin-top:3px; line-height:1.5}
+.dez{font-family:"Cormorant Garamond",Georgia,serif; font-size:34px; font-weight:700;
+  color:var(--ouro); line-height:1; display:block}
+.destaque{border-left:3px solid var(--ouro); background:var(--ouro-veu); padding:16px 18px}
+.destaque p{margin:0; font-size:14.5px; color:var(--suave); font-weight:300; line-height:1.65}
+.destaque b{color:var(--tinta); font-weight:600}
+
+/* ---- fechamento ---- */
+.fim{background:var(--carvao); color:#E8E0D4; padding:46px 24px; text-align:center}
+.fim-rot{font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--ouro-claro);
+  font-weight:700; margin:0 0 12px}
+.fim h2{font-family:"Cormorant Garamond",Georgia,serif; font-weight:700;
+  font-size:clamp(28px,7.6vw,38px); line-height:1.1; margin:0 0 14px; color:#FBF8F3}
+.fim-txt{font-size:15px; color:#BDB2A3; font-weight:300; margin:0 auto 24px; max-width:420px; line-height:1.7}
+
+.rodape{padding:26px 24px 34px; text-align:center; background:var(--carvao)}
+.rodape p{margin:0; font-size:12px; color:#8E8478; font-weight:300}
+.rodape .assina{font-family:"Cormorant Garamond",Georgia,serif; font-style:italic;
+  font-size:14px; color:var(--ouro-claro); margin-top:9px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important; scroll-behavior:auto}}
+</style>
+
+</body>
+</html>
