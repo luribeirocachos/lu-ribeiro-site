@@ -7,7 +7,8 @@ import { WHATSAPP } from '../consts';
 const titulo = 'Cachos na Prática — Imersão presencial com Lu Ribeiro';
 const descricao =
   'Dois dias de prática em modelos reais, em Piracicaba. 25 e 26 de outubro, turma VIP de 10 vagas. Da avaliação ao tratamento, com protocolo, finalização e precificação.';
-const capa = '/fotos/hero-lu.jpg';
+const capa = '/mentora/hero-1100.jpg';
+const og = '/mentora/og.jpg';
 
 // Texto diferente do da /lu de propósito: quando a mensagem chega, a Lu sabe se a pessoa veio
 // da página da campanha ("Vi a página") ou da bio ("Quero garantir"). Mesmo texto nos 3 botões.
@@ -28,7 +29,7 @@ const zap = () =>
 <meta property="og:type" content="website">
 <meta property="og:title" content="Cachos na Prática — 25 e 26 de outubro, 10 vagas">
 <meta property="og:description" content={descricao}>
-<meta property="og:image" content={`https://www.luribeirocachos.com.br${capa}`}>
+<meta property="og:image" content={`https://www.luribeirocachos.com.br${og}`}>
 <meta property="og:url" content="https://www.luribeirocachos.com.br/cachos-na-pratica">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
@@ -40,7 +41,7 @@ const zap = () =>
 
 <!-- ABERTURA -->
 <header class="hero">
-  <img class="hero-img" src={capa} alt="Lu Ribeiro" width="733" height="1100" fetchpriority="high">
+  <img class="hero-img" src={capa} srcset="/mentora/hero-640.jpg 640w, /mentora/hero-1100.jpg 1100w" sizes="100vw" alt="Lu Ribeiro sorrindo" width="1100" height="1650" fetchpriority="high">
   <div class="hero-txt">
     <span class="marca">Espaço Lu Ribeiro apresenta</span>
     <h1>Cachos<br>na Prática</h1>
@@ -106,6 +107,31 @@ const zap = () =>
   </div>
 </section>
 
+<!-- A PRIMEIRA TURMA (prova) -->
+<section class="bloco turma">
+  <span class="rotulo">Direto da sala de aula</span>
+  <h2>Já aconteceu — e foi assim.</h2>
+  <p class="texto">Modelos reais, mão na massa e certificado na mão no final. A turma de outubro é a próxima.</p>
+  <div class="turma-videos">
+    <figure class="vid">
+      <div class="vid-quadro">
+        <video src="/mentora/turma1-dia.mp4" poster="/mentora/turma1-dia.jpg" autoplay muted loop playsinline preload="metadata"
+             aria-label="Vídeo curto: dia de curso, alunas aplicando em modelos"></video>
+        <button class="vbtn" type="button" aria-label="Pausar ou tocar o vídeo do dia de curso"></button>
+      </div>
+      <figcaption>Dia de curso</figcaption>
+    </figure>
+    <figure class="vid">
+      <div class="vid-quadro">
+        <video src="/mentora/turma1-certificados.mp4" poster="/mentora/turma1-certificados.jpg" autoplay muted loop playsinline preload="metadata"
+             aria-label="Vídeo curto: a turma recebendo os certificados"></video>
+        <button class="vbtn" type="button" aria-label="Pausar ou tocar o vídeo da entrega dos certificados"></button>
+      </div>
+      <figcaption>Entrega dos certificados</figcaption>
+    </figure>
+  </div>
+</section>
+
 <!-- CTA MEIO -->
 <section class="cta-faixa">
   <p class="cta-frase">São <b>10 vagas</b> — a turma é pequena para caber a prática.</p>
@@ -114,7 +140,7 @@ const zap = () =>
 
 <!-- QUEM ENSINA -->
 <section class="bloco quem">
-  <img class="retrato" src="/fotos/lu-sobre.jpg" alt="Lu Ribeiro" width="733" height="1100" loading="lazy">
+  <img class="retrato" src="/mentora/sobre-640.jpg" alt="Lu Ribeiro rindo, de blazer preto" width="640" height="960" loading="lazy">
   <div class="quem-txt">
     <span class="rotulo">Quem vai te ensinar</span>
     <h2>Lu Ribeiro</h2>
@@ -133,7 +159,7 @@ const zap = () =>
   <div class="grade">
     <div class="cel">
       <div class="r">Quando</div>
-      <div class="v">25 e 26 de outubro<small>domingo e segunda, das 9h às 17h</small></div>
+      <div class="v">25 e 26 de outubro<small>domingo e segunda, das&nbsp;9h&nbsp;às&nbsp;17h</small></div>
     </div>
     <div class="cel">
       <div class="r">Onde</div>
@@ -141,7 +167,7 @@ const zap = () =>
     </div>
     <div class="cel">
       <div class="r">Investimento</div>
-      <div class="v">R$ 500 à vista<small>ou 5x de R$ 110 no cartão</small></div>
+      <div class="v">R$&nbsp;500 à vista<small>ou 5x de R$&nbsp;110 no cartão</small></div>
     </div>
     <div class="cel">
       <div class="r">Vagas</div>
@@ -172,10 +198,10 @@ const zap = () =>
 
 <style is:global>
 :root{
-  --ground:#F7F4EF; --surface:#FFFFFF; --veu:#EFE8DD;
-  --tinta:#2A2A2B; --suave:#6B655E; --fraco:#9A9188;
-  --ouro:#B58951; --ouro-claro:#D8BC8E; --ouro-veu:#F3E8D6;
-  --linha:#E3DACC; --carvao:#2A2A2B;
+  --ground:#F5ECE0; --surface:#FBF5EC; --veu:#EADBC6;
+  --tinta:#1F1510; --suave:#6B5B4F; --fraco:#766655;
+  --ouro:#85541F; --ouro-claro:#DDBB86; --ouro-veu:#EFE0C8;
+  --linha:#DCC9AE; --botao:#D9B070; --bronze-grande:#A06A2C; --carvao:#2A1D15;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
@@ -188,7 +214,7 @@ img{max-width:100%; height:auto; display:block}  /* height:auto: sem isso o atri
 .hero{position:relative; background:var(--carvao); overflow:hidden}
 .hero-img{width:100%; height:auto; object-position:center 15%; opacity:.5}
 .hero::after{content:""; position:absolute; inset:0;
-  background:linear-gradient(to bottom, rgba(26,24,22,.55) 0%, rgba(26,24,22,.35) 30%, rgba(26,24,22,.88) 72%, #2A2A2B 100%)}
+  background:linear-gradient(to bottom, rgba(34,22,14,.55) 0%, rgba(34,22,14,.35) 30%, rgba(34,22,14,.88) 72%, #2A1D15 100%)}
 .hero-txt{position:absolute; inset:auto 0 0 0; z-index:2; padding:0 24px 34px; text-align:center}
 .marca{display:block; font-size:10px; letter-spacing:.24em; text-transform:uppercase;
   color:var(--ouro-claro); font-weight:600; margin-bottom:12px}
@@ -203,10 +229,10 @@ img{max-width:100%; height:auto; display:block}  /* height:auto: sem isso o atri
 .quando span{white-space:nowrap}  /* quebra ENTRE os itens, nunca no meio ("10" / "vagas") */
 
 /* ---- botão ---- */
-.btn{display:block; width:100%; max-width:330px; margin:0 auto; background:var(--ouro); color:#1B1A18;
+.btn{display:block; width:100%; max-width:330px; margin:0 auto; background:var(--botao); color:#1F1510;
   text-decoration:none; padding:17px 22px; font-size:15.5px; font-weight:700; letter-spacing:.01em;
   border-radius:3px; text-align:center; transition:background .16s, transform .1s;
-  box-shadow:0 2px 14px rgba(181,137,81,.28)}
+  box-shadow:0 2px 14px rgba(217,176,112,.3)}
 .btn:hover,.btn:focus-visible{background:var(--ouro-claro); outline:none}
 .btn:active{transform:translateY(1px)}
 .btn:focus-visible{box-shadow:0 0 0 3px rgba(216,188,142,.5)}
@@ -236,7 +262,7 @@ img{max-width:100%; height:auto; display:block}  /* height:auto: sem isso o atri
   padding:18px 18px 16px; margin-bottom:14px}
 .dia-top{display:flex; align-items:center; gap:12px; margin-bottom:14px; padding-bottom:12px;
   border-bottom:1px solid rgba(216,188,142,.17)}
-.dia-top .num{flex:none; width:31px; height:31px; border-radius:50%; background:var(--ouro);
+.dia-top .num{flex:none; width:31px; height:31px; border-radius:50%; background:var(--botao);
   color:#1B1A18; font-weight:700; font-size:15px; display:flex; align-items:center; justify-content:center}
 .dia-ttl{font-size:14.5px; font-weight:600; color:#FBF8F3; line-height:1.25}
 .dia-ttl small{display:block; font-size:12px; font-weight:300; color:var(--ouro-claro); margin-top:1px}
@@ -250,6 +276,16 @@ img{max-width:100%; height:auto; display:block}  /* height:auto: sem isso o atri
 .leva-itens{display:flex; flex-wrap:wrap; gap:8px; justify-content:center}
 .leva-itens span{font-size:12.5px; color:#C4B9AA; font-weight:300;
   border:1px solid rgba(216,188,142,.28); padding:7px 13px; border-radius:999px}
+
+/* ---- primeira turma (vídeos) ---- */
+.turma-videos{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px;max-width:520px}
+.vid{margin:0}
+.vid-quadro{position:relative;border-radius:14px;overflow:hidden;background:#1a110c;aspect-ratio:9/16;box-shadow:0 12px 32px rgba(42,29,21,.2)}
+.vid video{display:block;width:100%;height:100%;object-fit:cover}
+.vbtn{position:absolute;inset:0;width:100%;height:100%;background:transparent;border:0;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.vbtn::after{content:"";position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:rgba(31,21,16,.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23F5ECE0' d='M9 6.5v11l9-5.5z'/%3E%3C/svg%3E") center/26px no-repeat;opacity:0;transition:opacity .2s}
+.vbtn.pausado::after{opacity:1}
+.vid figcaption{margin-top:12px;font-size:13px;font-weight:600;color:var(--suave);line-height:1.4}
 
 /* ---- faixa de CTA ---- */
 .cta-faixa{background:var(--ouro-veu); padding:32px 24px; text-align:center; border-bottom:1px solid var(--linha)}
@@ -293,6 +329,37 @@ img{max-width:100%; height:auto; display:block}  /* height:auto: sem isso o atri
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important; scroll-behavior:auto}}
 </style>
+
+<script is:inline>
+/* Vídeos da primeira turma: tocam mudos em loop só enquanto aparecem na tela; um toque pausa/toca.
+   Quem pede "reduzir movimento" no celular não recebe autoplay (começa pausado, com o play visível). */
+(function () {
+  var vids = [].slice.call(document.querySelectorAll('.vid video'));
+  if (!vids.length) return;
+  var reduz = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function marca(v) { var b = v.parentNode.querySelector('.vbtn'); if (b) b.classList.toggle('pausado', v.paused); }
+  vids.forEach(function (v) {
+    v.muted = true;
+    var b = v.parentNode.querySelector('.vbtn');
+    v.addEventListener('play', function () { marca(v); });
+    v.addEventListener('pause', function () { marca(v); });
+    if (b) b.addEventListener('click', function () {
+      if (v.paused) { v.dataset.manual = ''; v.play().catch(function () {}); }
+      else { v.dataset.manual = '1'; v.pause(); }
+    });
+    if (reduz) { v.removeAttribute('autoplay'); v.pause(); marca(v); }
+  });
+  if (reduz || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      var v = e.target;
+      if (e.isIntersecting) { if (v.dataset.manual !== '1') v.play().catch(function () {}); }
+      else { v.pause(); v.dataset.manual = ''; }
+    });
+  }, { threshold: 0.35 });
+  vids.forEach(function (v) { io.observe(v); });
+})();
+</script>
 
 </body>
 </html>
